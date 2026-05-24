@@ -19,27 +19,31 @@
 
 @layer components {
   .container-x {
-    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-12;
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-10 xl:px-12;
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 rounded-full bg-ink-900 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-accent hover:shadow-lg hover:shadow-accent/30 hover:-translate-y-0.5;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink-900 px-5 sm:px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-accent hover:shadow-lg hover:shadow-accent/30 hover:-translate-y-0.5 min-h-[44px];
   }
   .btn-secondary {
-    @apply inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-6 py-3 text-sm font-semibold text-ink-900 transition-all duration-300 hover:border-ink-900 hover:-translate-y-0.5;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink-200 bg-white px-5 sm:px-6 py-3 text-sm font-semibold text-ink-900 transition-all duration-300 hover:border-ink-900 hover:-translate-y-0.5 min-h-[44px];
   }
 
   .heading-xl {
-    @apply font-display font-bold tracking-tight leading-[1.04];
-    font-size: clamp(2.25rem, 3.6vw + 1rem, 4.5rem);
+    @apply font-display font-bold tracking-tight leading-[1.05];
+    font-size: clamp(1.85rem, 4vw + 0.85rem, 4.25rem);
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   .heading-lg {
-    @apply font-display font-bold tracking-tight leading-[1.1];
-    font-size: clamp(1.8rem, 2.6vw + 0.8rem, 3rem);
+    @apply font-display font-bold tracking-tight leading-[1.12];
+    font-size: clamp(1.55rem, 2.8vw + 0.7rem, 2.85rem);
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   .heading-md {
     @apply font-display font-semibold tracking-tight;
-    font-size: clamp(1.25rem, 1.2vw + 0.7rem, 1.65rem);
+    font-size: clamp(1.15rem, 1.2vw + 0.65rem, 1.6rem);
   }
 
   .text-muted {
@@ -133,8 +137,23 @@ a[href*="spline.design"][href*="?utm"] {
 
 /* Responsive base type */
 html {
-  font-size: 15px;
+  font-size: 14px;
 }
 @media (min-width: 640px) {
   html { font-size: 16px; }
+}
+
+/* Mobile-only — prevent any 100vw element from causing horizontal scroll */
+@media (max-width: 640px) {
+  body {
+    overflow-x: hidden;
+  }
+  /* Tighter card padding on small screens */
+  .pro-card {
+    padding: 1.5rem !important;
+  }
+  /* Cleaner section spacing on mobile */
+  section {
+    scroll-margin-top: 80px;
+  }
 }

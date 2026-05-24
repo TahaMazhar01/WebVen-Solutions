@@ -32,16 +32,16 @@ export default function Hero3D() {
       {/* Soft outer glow */}
       <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent/20 via-violet-400/15 to-amber-300/10 blur-3xl scale-90" />
 
-      {/* Decorative rings */}
+      {/* Decorative rings (kept inside the parent on mobile) */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
-        className="absolute inset-[-6%] rounded-full border border-accent/20 pointer-events-none"
+        className="absolute inset-[-3%] sm:inset-[-6%] rounded-full border border-accent/20 pointer-events-none"
       />
       <motion.div
         animate={{ rotate: -360 }}
         transition={{ duration: 100, repeat: Infinity, ease: 'linear' }}
-        className="absolute inset-[-12%] rounded-full border border-dashed border-violet-300/30 pointer-events-none"
+        className="absolute inset-[-6%] sm:inset-[-12%] rounded-full border border-dashed border-violet-300/30 pointer-events-none"
       />
 
       {/* Circular Spline stage */}
@@ -79,14 +79,14 @@ export default function Hero3D() {
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-        className="absolute inset-[-6%] pointer-events-none"
+        className="absolute inset-[-3%] sm:inset-[-6%] pointer-events-none"
       >
         <div className="absolute left-1/2 top-0 -translate-x-1/2 w-3 h-3 rounded-full bg-accent shadow-lg shadow-accent/60" />
       </motion.div>
       <motion.div
         animate={{ rotate: -360 }}
         transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
-        className="absolute inset-[-12%] pointer-events-none"
+        className="absolute inset-[-6%] sm:inset-[-12%] pointer-events-none"
       >
         <div className="absolute left-1/2 top-0 -translate-x-1/2 w-2 h-2 rounded-full bg-violet-500 shadow-lg shadow-violet-500/60" />
       </motion.div>

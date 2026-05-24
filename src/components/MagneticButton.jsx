@@ -27,7 +27,7 @@ export default function MagneticButton({ children, className = '', strength = 30
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       style={{ x: sx, y: sy }}
-      className={`inline-block ${className}`}
+      className={`inline-flex ${className}`}
       {...rest}
     >
       {children}

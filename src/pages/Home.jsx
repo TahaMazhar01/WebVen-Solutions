@@ -92,26 +92,26 @@ export default function Home() {
       {/* ===== HERO ===== */}
       <section className="relative">
         <div className="container-x">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center pt-4 lg:pt-8 pb-12 lg:pb-16">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center pt-2 lg:pt-8 pb-12 lg:pb-16">
             {/* Left content — 7 cols */}
             <div className="lg:col-span-7 relative z-10 order-2 lg:order-1">
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="eyebrow mb-5"
+                className="eyebrow mb-4 sm:mb-5"
               >
-                <Sparkles size={12} /> Web Development · AI Solutions
+                <Sparkles size={12} /> Web Dev · AI Solutions
               </motion.span>
 
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
-                className="heading-xl mb-5 max-w-[16ch]"
+                className="heading-xl mb-4 sm:mb-5"
               >
                 We build modern websites and{' '}
-                <span className="gradient-text whitespace-nowrap">AI solutions.</span>
+                <span className="gradient-text">AI solutions.</span>
               </motion.h1>
 
               <motion.p
@@ -128,15 +128,15 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
-                className="flex flex-wrap items-center gap-3 mb-8"
+                className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 mb-7 sm:mb-8"
               >
-                <MagneticButton>
-                  <Link to="/contact" className="btn-primary">
+                <MagneticButton className="w-full sm:w-auto">
+                  <Link to="/contact" className="btn-primary w-full sm:w-auto">
                     Start a project <ArrowUpRight size={16} />
                   </Link>
                 </MagneticButton>
-                <MagneticButton>
-                  <Link to="/portfolio" className="btn-secondary">
+                <MagneticButton className="w-full sm:w-auto">
+                  <Link to="/portfolio" className="btn-secondary w-full sm:w-auto">
                     View our work
                   </Link>
                 </MagneticButton>
@@ -147,17 +147,17 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.55 }}
-                className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-xl"
+                className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 max-w-xl"
               >
                 {stats.map((s) => (
                   <div
                     key={s.label}
-                    className="rounded-2xl border border-ink-100 bg-white/60 backdrop-blur px-4 py-3"
+                    className="rounded-2xl border border-ink-100 bg-white/60 backdrop-blur px-3 sm:px-4 py-3"
                   >
-                    <div className="font-display text-2xl sm:text-3xl font-bold text-ink-900">
+                    <div className="font-display text-xl sm:text-3xl font-bold text-ink-900">
                       <CountUp to={s.value} suffix={s.suffix} />
                     </div>
-                    <div className="text-[10px] sm:text-xs text-ink-500 uppercase tracking-wider mt-0.5">
+                    <div className="text-[9px] sm:text-xs text-ink-500 uppercase tracking-wider mt-0.5">
                       {s.label}
                     </div>
                   </div>
@@ -167,7 +167,7 @@ export default function Home() {
 
             {/* Right — 3D circle — 5 cols */}
             <div className="lg:col-span-5 order-1 lg:order-2 relative">
-              <div className="relative w-full aspect-square max-w-[460px] mx-auto">
+              <div className="relative w-full aspect-square max-w-[320px] sm:max-w-[400px] lg:max-w-[460px] mx-auto">
                 <Hero3D />
 
                 {/* Tagline badge — top-left, inside circle area */}
