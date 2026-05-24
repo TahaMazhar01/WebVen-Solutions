@@ -22,18 +22,50 @@ const interests = [
   { value: 'Other',    label: 'Something else', icon: MoreHorizontal },
 ]
 
+// Input limits (must match server-side limits in api/contact.js)
+const LIMITS = { name: 100, email: 200, company: 100, message: 4000 }
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export default function Contact() {
   const [sent, setSent] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({
     name: '', email: '', company: '',
     budget: '', interest: '', message: '',
+    website: '', // honeypot — must stay empty
   })
 
-  const update = (k) => (e) => setForm({ ...form, [k]: e.target.value })
+  const update = (k) => (e) => {
+    setError('')
+    const max = LIMITS[k]
+    const val = max ? e.target.value.slice(0, max) : e.target.value
+    setForm({ ...form, [k]: val })
+  }
 
   const submit = (e) => {
     e.preventDefault()
+
+    // Honeypot check — silently bail if bot filled hidden field
+    if (form.website) {
+      setSent(true)
+      return
+    }
+
+    // Client-side validation
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+      setError('Please fill in all required fields.')
+      return
+    }
+    if (!EMAIL_RE.test(form.email.trim())) {
+      setError('Please enter a valid email address.')
+      return
+    }
+    if (form.message.trim().length < 10) {
+      setError('Please tell us a bit more about your project (10+ characters).')
+      return
+    }
+
     setSubmitting(true)
 
     // Build a nicely formatted WhatsApp message
@@ -314,6 +346,31 @@ export default function Contact() {
                           placeholder="Goals, timeline, links — anything that helps us help you."
                         />
                       </div>
+
+                      {/* Honeypot — hidden from real users, bots fill it */}
+                      <div className="absolute opacity-0 pointer-events-none -left-[9999px]" aria-hidden="true">
+                        <label htmlFor="website">Website (leave blank)</label>
+                        <input
+                          type="text"
+                          id="website"
+                          name="website"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={form.website}
+                          onChange={update('website')}
+                        />
+                      </div>
+
+                      {/* Error message */}
+                      {error && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="rounded-xl bg-rose-50 border border-rose-200 px-4 py-3 text-sm text-rose-700"
+                        >
+                          {error}
+                        </motion.div>
+                      )}
 
                       {/* Submit */}
                       <motion.button

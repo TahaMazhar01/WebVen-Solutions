@@ -1,7 +1,18 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Suspense, lazy } from 'react'
-import { ArrowUpRight, Compass, Rocket, Lightbulb, HandHeart, Sparkles } from 'lucide-react'
+import { Suspense, lazy, useState } from 'react'
+import {
+  ArrowUpRight,
+  Compass,
+  Rocket,
+  Lightbulb,
+  HandHeart,
+  Sparkles,
+  Quote,
+  Linkedin,
+  Twitter,
+  Github,
+} from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
 import IconBubble from '../components/IconBubble'
 
@@ -36,170 +47,133 @@ const values = [
 ]
 
 const team = [
-  { name: 'Alex Morgan', role: 'Founder & Lead Designer', img: 'https://i.pravatar.cc/400?img=12' },
-  { name: 'Sara Khan', role: 'Engineering Lead', img: 'https://i.pravatar.cc/400?img=20' },
-  { name: 'Jordan Lee', role: 'Motion & 3D', img: 'https://i.pravatar.cc/400?img=14' },
-  { name: 'Maya Patel', role: 'Growth & SEO', img: 'https://i.pravatar.cc/400?img=23' },
+  { name: 'Taha Mazhar', role: 'Founder & Lead Developer', img: 'https://i.pravatar.cc/400?img=12' },
+  { name: 'Sara Khan',  role: 'Engineering Lead',          img: 'https://i.pravatar.cc/400?img=20' },
+  { name: 'Jordan Lee', role: 'Motion & 3D Designer',      img: 'https://i.pravatar.cc/400?img=14' },
+  { name: 'Maya Patel', role: 'Growth & SEO Strategist',   img: 'https://i.pravatar.cc/400?img=23' },
 ]
 
 export default function About() {
   return (
     <PageWrapper>
+      {/* ===== HERO INTRO ===== */}
       <section className="container-x py-16 sm:py-20">
-        <div className="max-w-4xl">
-          <span className="eyebrow mb-5">About Webven</span>
-          <h1 className="heading-xl mb-6">
-            A small studio with <span className="gradient-text">big ambition.</span>
-          </h1>
-          <p className="text-base sm:text-xl text-ink-500 leading-relaxed max-w-3xl">
-            Webven is a remote-first design and engineering studio. We partner with founders,
-            marketers, and product teams to ship beautiful digital products that perform.
-          </p>
+        <div className="grid lg:grid-cols-12 gap-10 items-end">
+          <div className="lg:col-span-8">
+            <span className="eyebrow mb-5">
+              <Sparkles size={12} /> About Webven
+            </span>
+            <h1 className="heading-xl mb-6">
+              A small studio with{' '}
+              <span className="gradient-text">big ambition.</span>
+            </h1>
+            <p className="text-base sm:text-xl text-ink-500 leading-relaxed max-w-3xl">
+              Webven is a remote-first design and engineering studio. We partner with
+              founders, marketers, and product teams to ship beautiful digital products
+              that actually perform.
+            </p>
+          </div>
+
+          {/* Compact stats — right side of intro */}
+          <div className="lg:col-span-4 grid grid-cols-2 gap-3">
+            {[
+              { v: '120+', l: 'Projects' },
+              { v: '40+',  l: 'Clients' },
+              { v: '8+',   l: 'Years' },
+              { v: '99%',  l: 'Retention' },
+            ].map((s) => (
+              <div key={s.l} className="rounded-2xl border border-ink-100 bg-gradient-to-br from-white to-blue-50/30 p-4">
+                <div className="font-display text-3xl font-bold text-ink-900">{s.v}</div>
+                <div className="text-[10px] text-ink-500 uppercase tracking-[0.18em] mt-1 font-semibold">
+                  {s.l}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ===== STUDIO IN MOTION (Spline scene) ===== */}
-      <section className="container-x py-4 sm:py-6">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative mx-auto max-w-[820px]"
-        >
-          {/* Eyebrow label above the frame */}
-          <div className="flex items-center justify-between mb-5 px-1">
-            <span className="eyebrow">
-              <Sparkles size={12} /> Studio in motion
-            </span>
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-ink-400 font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Interactive · drag to explore
-            </span>
-          </div>
+      {/* ===== STUDIO IN MOTION — clean Spline display ===== */}
+      <StudioInMotion />
 
-          {/* Polished frame */}
-          <div className="relative rounded-[28px] p-1.5 bg-gradient-to-br from-accent/30 via-violet-500/20 to-accent/30 shadow-2xl shadow-accent/20">
-            <div className="relative rounded-[24px] overflow-hidden bg-gradient-to-br from-ink-950 via-ink-900 to-blue-950 aspect-[4/3] sm:aspect-[16/10]">
-              {/* Tiny window-bar at top (browser-style) */}
-              <div className="absolute top-0 left-0 right-0 z-30 flex items-center gap-1.5 px-4 py-2.5 bg-ink-950/95 backdrop-blur border-b border-white/5">
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-400/80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
-                <span className="ml-3 text-[10px] uppercase tracking-[0.2em] text-white/40 font-medium">
-                  webven · live preview
-                </span>
-              </div>
-
-              {/* Spline canvas — scaled up to crop out watermark and floor rectangle */}
-              <div className="absolute inset-0 scale-[1.22] -translate-y-[3%] origin-center">
-                <Suspense
-                  fallback={
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                        className="w-10 h-10 rounded-full border-2 border-white/10 border-t-accent"
-                      />
-                    </div>
-                  }
-                >
-                  <Spline scene={STUDIO_SCENE} />
-                </Suspense>
-              </div>
-
-              {/* Bottom gradient fade — hides watermark + any base rectangle */}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink-950 via-ink-950/95 to-transparent z-20" />
-
-              {/* Side gradient fades — subtle vignette */}
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-ink-950/70 to-transparent z-20" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-ink-950/70 to-transparent z-20" />
-
-              {/* Radial vignette — soft focus on the robot */}
-              <div
-                className="pointer-events-none absolute inset-0 z-20"
-                style={{
-                  background:
-                    'radial-gradient(ellipse 60% 70% at center 45%, transparent 0%, transparent 50%, rgba(10,10,12,0.6) 100%)',
-                }}
-              />
-
-              {/* Decorative caption inside frame — bottom overlay (replaces watermark area visually) */}
-              <div className="absolute bottom-4 left-0 right-0 z-30 text-center">
-                <p className="text-[10px] uppercase tracking-[0.32em] text-white/40 font-semibold">
-                  ★ Webven · Studio of motion ★
-                </p>
-              </div>
-
-              {/* Inset highlight */}
-              <div className="pointer-events-none absolute inset-0 rounded-[24px] ring-1 ring-inset ring-white/5 z-20" />
-            </div>
-          </div>
-
-          {/* Caption under the frame */}
-          <p className="text-center text-sm text-ink-500 mt-5 italic">
-            "We don't just build websites — we craft experiences that feel alive."
-          </p>
-        </motion.div>
-      </section>
-
+      {/* ===== OUR STORY ===== */}
       <section className="container-x py-20 sm:py-28">
-        <div className="grid md:grid-cols-12 gap-10 lg:gap-12">
+        <div className="grid md:grid-cols-12 gap-10 lg:gap-14">
           <div className="md:col-span-5">
             <span className="eyebrow mb-5">Our story</span>
-            <h2 className="heading-lg mb-3">Founded on the idea that the web should feel alive.</h2>
+            <h2 className="heading-lg">
+              Founded on the idea that the web should{' '}
+              <span className="gradient-text">feel alive.</span>
+            </h2>
           </div>
           <div className="md:col-span-7 space-y-5 text-base sm:text-lg text-ink-600 leading-relaxed">
             <p>
-              We started Webven in 2017 with a simple belief: most websites were boring, slow,
+              We started Webven with a simple belief: most websites were boring, slow,
               and forgettable. We wanted to build a studio where craft mattered.
             </p>
             <p>
-              Eight years later, we've shipped over 120 projects for startups, scale-ups, and
-              established brands — including <strong className="text-ink-900">ASHGroup Dubai</strong>.
-              We've grown into a tight-knit team of designers, engineers, and strategists
-              who genuinely love what we do.
+              Eight years later, we've shipped over 120 projects — including a full
+              digital revamp for{' '}
+              <strong className="text-ink-900">ASHGroup Dubai</strong>. We've grown into
+              a tight-knit team of designers, engineers, and strategists who genuinely
+              love what we do.
             </p>
             <p>
-              We're proud to be a small team — it means you work directly with the people
+              We're proud to stay small — it means you work directly with the people
               building your product. No layers, no handoffs, no surprises.
             </p>
+
+            {/* Pull-quote */}
+            <div className="relative mt-8 p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-violet-50 border border-blue-100">
+              <Quote size={28} className="text-accent opacity-30 absolute top-4 left-4" />
+              <p className="relative pl-10 italic text-ink-700 font-medium">
+                "Craft is the difference between something that works and something
+                that's worth using."
+              </p>
+              <p className="relative pl-10 mt-3 text-xs uppercase tracking-[0.18em] text-ink-500 font-semibold">
+                Taha Mazhar · Founder
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-gradient-to-br from-ink-50 to-indigo-50/40 py-20 sm:py-28">
-        <div className="container-x">
-          <div className="text-center mx-auto max-w-2xl mb-12 sm:mb-14">
-            <span className="eyebrow mb-5">What we believe</span>
-            <h2 className="heading-lg">The principles behind our work.</h2>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-            {values.map((v, i) => {
-              const Icon = v.icon
-              return (
-                <motion.div
-                  key={v.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="pro-card group"
-                >
-                  <div className="mb-5 inline-block">
-                    <IconBubble variant={v.variant} size="md">
-                      <Icon size={20} />
-                    </IconBubble>
-                  </div>
-                  <h3 className="font-display font-semibold text-lg sm:text-xl mb-2">{v.title}</h3>
-                  <p className="text-sm sm:text-base text-ink-500 leading-relaxed">{v.desc}</p>
-                </motion.div>
-              )
-            })}
-          </div>
+      {/* ===== VALUES ===== */}
+      <section className="container-x py-20 sm:py-28">
+        <div className="text-center mx-auto max-w-2xl mb-12 sm:mb-14">
+          <span className="eyebrow mb-5">What we believe</span>
+          <h2 className="heading-lg">The principles behind our work.</h2>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          {values.map((v, i) => {
+            const Icon = v.icon
+            return (
+              <motion.div
+                key={v.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="pro-card group"
+              >
+                <div className="mb-5 inline-block">
+                  <IconBubble variant={v.variant} size="md">
+                    <Icon size={20} />
+                  </IconBubble>
+                </div>
+                <h3 className="font-display font-semibold text-lg sm:text-xl mb-2">
+                  {v.title}
+                </h3>
+                <p className="text-sm sm:text-base text-ink-500 leading-relaxed">
+                  {v.desc}
+                </p>
+              </motion.div>
+            )
+          })}
         </div>
       </section>
 
+      {/* ===== TEAM ===== */}
       <section className="container-x py-20 sm:py-28">
         <div className="mb-10 sm:mb-14 max-w-3xl">
           <span className="eyebrow mb-5">The team</span>
@@ -215,13 +189,24 @@ export default function About() {
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className="group"
             >
-              <div className="aspect-[3/4] rounded-2xl overflow-hidden mb-4 bg-ink-100 relative">
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 bg-ink-100">
                 <img
                   src={p.img}
                   alt={p.name}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  className="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-ink-950/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Social icons reveal on hover */}
+                <div className="absolute bottom-4 left-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                  {[Linkedin, Twitter, Github].map((Ico, idx) => (
+                    <span
+                      key={idx}
+                      className="w-8 h-8 rounded-full bg-white/95 text-ink-900 flex items-center justify-center cursor-pointer hover:bg-accent hover:text-white transition-colors"
+                    >
+                      <Ico size={12} />
+                    </span>
+                  ))}
+                </div>
               </div>
               <h4 className="font-display font-semibold text-base sm:text-lg">{p.name}</h4>
               <p className="text-xs sm:text-sm text-ink-500">{p.role}</p>
@@ -230,8 +215,9 @@ export default function About() {
         </div>
       </section>
 
+      {/* ===== CTA ===== */}
       <section className="container-x pb-20">
-        <div className="rounded-3xl border border-ink-200 bg-gradient-to-br from-white to-indigo-50/30 p-8 sm:p-12 lg:p-16 text-center">
+        <div className="rounded-3xl border border-ink-200 bg-gradient-to-br from-white via-blue-50/30 to-violet-50/30 p-8 sm:p-12 lg:p-16 text-center">
           <h2 className="heading-lg mb-4">Want to work with us?</h2>
           <p className="text-ink-500 mb-7 sm:mb-8 max-w-xl mx-auto">
             We're always open to interesting projects and great collaborations.
@@ -242,5 +228,76 @@ export default function About() {
         </div>
       </section>
     </PageWrapper>
+  )
+}
+
+/* ===== Studio in Motion — clean, wide, centered Spline ===== */
+function StudioInMotion() {
+  const [loaded, setLoaded] = useState(false)
+
+  return (
+    <section className="container-x">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="relative mx-auto max-w-5xl"
+      >
+        {/* Eyebrow row above frame */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-5 px-1">
+          <span className="eyebrow">
+            <Sparkles size={12} /> Studio in motion
+          </span>
+          <span className="inline-flex items-center gap-2 text-xs text-ink-500 font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Interactive · drag to explore
+          </span>
+        </div>
+
+        {/* Frame — wider with proper aspect ratio so robot has room */}
+        <div className="relative rounded-[28px] overflow-hidden bg-gradient-to-br from-ink-950 via-ink-900 to-blue-950 aspect-[16/10] sm:aspect-[16/8] shadow-2xl shadow-accent/15 ring-1 ring-white/10">
+          {/* Loader */}
+          {!loaded && (
+            <div className="absolute inset-0 flex items-center justify-center z-10">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                className="w-10 h-10 rounded-full border-2 border-white/10 border-t-accent"
+              />
+            </div>
+          )}
+
+          {/* Spline — centered, slightly scaled, no x-shift so robot stays in middle */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: loaded ? 1 : 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 scale-105 origin-center"
+          >
+            <Suspense fallback={null}>
+              <Spline scene={STUDIO_SCENE} onLoad={() => setLoaded(true)} />
+            </Suspense>
+          </motion.div>
+
+          {/* Subtle bottom fade — hides Spline watermark only, not the robot */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-ink-950 to-transparent z-10" />
+
+          {/* Watermark cover */}
+          <div className="pointer-events-none absolute bottom-3 right-3 w-36 h-10 rounded-md bg-ink-950 z-10" />
+
+          {/* Soft top hint label */}
+          <div className="pointer-events-none absolute top-5 left-5 z-10 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[10px] uppercase tracking-[0.22em] text-white/80 font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+            Live · 3D scene
+          </div>
+        </div>
+
+        {/* Caption */}
+        <p className="text-center text-sm text-ink-500 mt-5 italic max-w-xl mx-auto">
+          "We don't just build websites — we craft experiences that feel alive."
+        </p>
+      </motion.div>
+    </section>
   )
 }

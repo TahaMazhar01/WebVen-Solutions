@@ -8,9 +8,11 @@ import Services from './pages/Services'
 import Solutions from './pages/Solutions'
 import Portfolio from './pages/Portfolio'
 import Contact from './pages/Contact'
+import NotFound from './pages/NotFound'
 import ScrollToTop from './components/ScrollToTop'
 import ScrollProgress from './components/ScrollProgress'
 import SplashScreen from './components/SplashScreen'
+import BackToTop from './components/BackToTop'
 
 export default function App() {
   const location = useLocation()
@@ -30,10 +32,12 @@ export default function App() {
             <Route path="/solutions" element={<Solutions />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
       </main>
       <Footer />
+      <BackToTop />
     </div>
   )
 }
