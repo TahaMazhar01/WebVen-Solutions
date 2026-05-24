@@ -5,12 +5,13 @@ import {
   Sparkles,
   Star,
   Globe2,
+  Brain,
   Smartphone,
-  TrendingUp,
   Layers,
   Zap,
   ShieldCheck,
   BadgeCheck,
+  Code2,
 } from 'lucide-react'
 import Hero3D from '../components/Hero3D'
 import PageWrapper from '../components/PageWrapper'
@@ -20,25 +21,25 @@ import IconBubble from '../components/IconBubble'
 
 const services = [
   {
-    icon: Globe2,
+    icon: Code2,
     variant: 'default',
     title: 'Web Development',
-    desc: 'Lightning-fast, accessible, beautifully crafted websites built with modern tooling.',
+    desc: 'Modern, lightning-fast websites and web apps built with the latest tech stack.',
     tags: ['React', 'Next.js', 'Vite'],
   },
   {
-    icon: Smartphone,
+    icon: Brain,
     variant: 'violet',
-    title: 'Mobile Apps',
-    desc: 'iOS & Android apps with native feel, smooth animations, and clean architecture.',
-    tags: ['React Native', 'Flutter'],
+    title: 'AI Solutions',
+    desc: 'Smart AI features — chatbots, automation, content generation — built into your product.',
+    tags: ['OpenAI', 'Claude', 'LangChain'],
   },
   {
-    icon: TrendingUp,
+    icon: Smartphone,
     variant: 'emerald',
-    title: 'SEO & Growth',
-    desc: 'Technical SEO, content, and analytics that grow your organic traffic month over month.',
-    tags: ['SEO', 'Analytics', 'CRO'],
+    title: 'Mobile Apps',
+    desc: 'Native-feeling iOS & Android apps with smooth UX and clean architecture.',
+    tags: ['React Native', 'Flutter'],
   },
 ]
 
@@ -100,17 +101,17 @@ export default function Home() {
                 transition={{ duration: 0.6 }}
                 className="eyebrow mb-5"
               >
-                <Sparkles size={12} /> Premium digital studio
+                <Sparkles size={12} /> Web Development · AI Solutions
               </motion.span>
 
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
-                className="heading-xl mb-5 max-w-[14ch]"
+                className="heading-xl mb-5 max-w-[16ch]"
               >
-                We craft digital experiences that{' '}
-                <span className="gradient-text whitespace-nowrap">move people.</span>
+                We build modern websites and{' '}
+                <span className="gradient-text whitespace-nowrap">AI solutions.</span>
               </motion.h1>
 
               <motion.p
@@ -119,8 +120,8 @@ export default function Home() {
                 transition={{ duration: 0.7, delay: 0.25 }}
                 className="text-base sm:text-lg text-ink-500 max-w-xl leading-relaxed mb-7"
               >
-                Webven is a modern studio building websites, mobile apps,
-                and SEO strategies for ambitious brands worldwide.
+                Webven is a small team of web developers crafting fast websites,
+                mobile apps, and AI-powered features for ambitious brands worldwide.
               </motion.p>
 
               <motion.div
@@ -238,11 +239,11 @@ export default function Home() {
                 We built <span className="gradient-text">ASHGroup Dubai</span>'s digital presence.
               </h2>
               <p className="text-base sm:text-lg text-ink-500 leading-relaxed max-w-2xl mb-6">
-                A full digital revamp for one of Dubai's leading real-estate groups — including
-                a modern marketing site, lead-gen flows, and an internal property portal.
+                A full website build for one of Dubai's leading real-estate groups —
+                a fast marketing site, lead-gen flows, and an AI chatbot for property inquiries.
               </p>
               <div className="flex flex-wrap gap-2 mb-7">
-                {['Web Design', 'Development', 'SEO', 'Brand'].map((t) => (
+                {['Web Development', 'AI Chatbot', 'SEO', 'Hosting'].map((t) => (
                   <span
                     key={t}
                     className="text-xs font-medium text-ink-700 px-3 py-1.5 rounded-full bg-white border border-ink-200"
@@ -291,11 +292,11 @@ export default function Home() {
         >
           <span className="eyebrow mb-5">What we do</span>
           <h2 className="heading-lg mb-4">
-            A studio built for <span className="gradient-text">modern brands.</span>
+            Web development meets <span className="gradient-text">AI.</span>
           </h2>
           <p className="text-base sm:text-lg text-ink-500 leading-relaxed">
-            Design, engineering and growth under one roof — so you ship faster
-            and look better doing it.
+            We build modern websites, mobile apps, and AI-powered features —
+            everything you need to launch and grow online.
           </p>
         </motion.div>
 
@@ -453,9 +454,10 @@ export default function Home() {
             <div className="absolute bottom-0 right-1/4 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-violet-500/30 blur-3xl" />
           </div>
           <div className="relative">
-            <h2 className="heading-lg mb-5">Have a project in mind?</h2>
+            <h2 className="heading-lg mb-5">Need a website or AI feature?</h2>
             <p className="text-base sm:text-lg text-ink-300 max-w-2xl mx-auto mb-8 sm:mb-10">
-              Let's turn your idea into something real. We're booking new projects for next quarter.
+              We're booking new web development and AI projects.
+              Tell us what you're building — we'll send back a plan.
             </p>
             <MagneticButton>
               <Link
