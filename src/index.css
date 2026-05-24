@@ -19,7 +19,7 @@
 
 @layer components {
   .container-x {
-    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-12;
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12;
   }
 
   .btn-primary {
@@ -299,8 +299,33 @@ a[href*="spline.design"][href*="?utm"] {
 
 /* Responsive base type */
 html {
-  font-size: 15px;
+  font-size: 14px;
+}
+@media (min-width: 480px) {
+  html { font-size: 15px; }
 }
 @media (min-width: 640px) {
   html { font-size: 16px; }
+}
+
+/* Better responsive utilities */
+@layer utilities {
+  .text-responsive-sm {
+    @apply text-xs sm:text-sm;
+  }
+  .text-responsive-base {
+    @apply text-sm sm:text-base;
+  }
+  .text-responsive-lg {
+    @apply text-base sm:text-lg md:text-xl;
+  }
+  .gap-responsive {
+    @apply gap-4 sm:gap-6 lg:gap-8;
+  }
+  .py-responsive {
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+  }
+  .px-responsive {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
 }

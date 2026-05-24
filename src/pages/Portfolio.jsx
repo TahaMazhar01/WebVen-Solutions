@@ -72,20 +72,20 @@ export default function Portfolio() {
 
   return (
     <PageWrapper>
-      <section className="container-x py-16 sm:py-20">
+      <section className="container-x py-12 sm:py-16 lg:py-20">
         <div className="max-w-4xl">
-          <span className="eyebrow mb-5">Selected work</span>
-          <h1 className="heading-xl mb-6">
-            Projects we're <span className="gradient-text">proud of.</span>
+          <span className="eyebrow mb-4 sm:mb-5">Selected work</span>
+          <h1 className="heading-xl mb-4 sm:mb-6">
+            Projects {"we're"} <span className="gradient-text">proud of.</span>
           </h1>
-          <p className="text-base sm:text-xl text-ink-500 leading-relaxed max-w-3xl">
+          <p className="text-sm sm:text-base lg:text-xl text-ink-500 leading-relaxed max-w-3xl">
             A curated selection of recent work — from venture-backed startups
             to established brands like ASHGroup Dubai.
           </p>
         </div>
       </section>
 
-      <section className="container-x mb-10 sm:mb-12">
+      <section className="container-x mb-8 sm:mb-10 lg:mb-12">
         <div className="flex flex-wrap gap-2">
           {filters.map((f) => (
             <motion.button
@@ -93,7 +93,7 @@ export default function Portfolio() {
               onClick={() => setActive(f)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`relative px-5 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-500 overflow-hidden ${
+              className={`relative px-4 sm:px-5 lg:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-500 overflow-hidden ${
                 active === f
                   ? 'bg-ink-900 text-white shadow-lg shadow-ink-900/25'
                   : 'bg-ink-50 text-ink-700 hover:bg-ink-100 hover:shadow-md'

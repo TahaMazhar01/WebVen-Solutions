@@ -91,7 +91,7 @@ export default function Home() {
       {/* ===== HERO ===== */}
       <section className="relative">
         <div className="container-x">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center pt-4 lg:pt-8 pb-12 lg:pb-16">
+          <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-center pt-2 sm:pt-4 lg:pt-8 pb-10 sm:pb-12 lg:pb-16">
             {/* Left content — 7 cols */}
             <div className="lg:col-span-7 relative z-10 order-2 lg:order-1">
               <motion.span
@@ -104,13 +104,13 @@ export default function Home() {
               </motion.span>
 
               <motion.h1
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
-                className="heading-xl mb-5 max-w-[14ch]"
+                className="heading-xl mb-5 sm:mb-6 text-ink-900"
               >
-                We craft digital experiences that{' '}
-                <span className="gradient-text whitespace-nowrap">move people.</span>
+                Design-led studio crafting{' '}
+                <span className="gradient-text">digital experiences</span> people love.
               </motion.h1>
 
               <motion.p

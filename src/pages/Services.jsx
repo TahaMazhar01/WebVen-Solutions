@@ -74,21 +74,21 @@ const process = [
 export default function Services() {
   return (
     <PageWrapper>
-      <section className="container-x py-16 sm:py-20">
+      <section className="container-x py-12 sm:py-16 lg:py-20">
         <div className="max-w-4xl">
-          <span className="eyebrow mb-5">Services</span>
-          <h1 className="heading-xl mb-6">
+          <span className="eyebrow mb-4 sm:mb-5">Services</span>
+          <h1 className="heading-xl mb-4 sm:mb-6">
             Everything you need to <span className="gradient-text">grow online.</span>
           </h1>
-          <p className="text-base sm:text-xl text-ink-500 leading-relaxed max-w-3xl">
+          <p className="text-sm sm:text-base lg:text-xl text-ink-500 leading-relaxed max-w-3xl">
             From a landing page to a full product launch, we cover the entire digital
             stack — design, code, and growth.
           </p>
         </div>
       </section>
 
-      <section className="container-x pb-10">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+      <section className="container-x pb-8 sm:pb-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
           {services.map((s, i) => {
             const Icon = s.icon
             return (

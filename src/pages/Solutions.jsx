@@ -99,13 +99,13 @@ export default function Solutions() {
   return (
     <PageWrapper>
       {/* Intro */}
-      <section className="container-x py-16 sm:py-20">
+      <section className="container-x py-12 sm:py-16 lg:py-20">
         <div className="max-w-4xl">
-          <span className="eyebrow mb-5">Solutions</span>
-          <h1 className="heading-xl mb-6">
+          <span className="eyebrow mb-4 sm:mb-5">Solutions</span>
+          <h1 className="heading-xl mb-4 sm:mb-6">
             Every kind of <span className="gradient-text">web solution.</span>
           </h1>
-          <p className="text-base sm:text-xl text-ink-500 leading-relaxed max-w-3xl">
+          <p className="text-sm sm:text-base lg:text-xl text-ink-500 leading-relaxed max-w-3xl">
             From simple landing pages to AI-powered platforms — here are the
             technologies and architectures we build with, and when each one fits.
           </p>
@@ -124,7 +124,7 @@ export default function Solutions() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.7 }}
-              className={`grid lg:grid-cols-12 gap-8 lg:gap-14 items-center py-12 sm:py-16 lg:py-20 ${
+              className={`grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-14 items-center py-10 sm:py-12 lg:py-20 ${
                 i !== solutions.length - 1 ? 'border-b border-ink-100' : ''
               }`}
             >

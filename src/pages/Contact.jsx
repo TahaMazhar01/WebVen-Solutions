@@ -66,17 +66,17 @@ export default function Contact() {
 
   return (
     <PageWrapper>
-      <section className="container-x py-16 sm:py-20">
-        <div className="grid lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16">
+      <section className="container-x py-12 sm:py-16 lg:py-20">
+        <div className="grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-16">
           {/* === LEFT: intro + info === */}
           <div className="lg:col-span-5">
-            <span className="eyebrow mb-5">
+            <span className="eyebrow mb-4 sm:mb-5">
               <Sparkles size={12} /> Get in touch
             </span>
-            <h1 className="heading-lg mb-6">
-              Let's build something <span className="gradient-text">great.</span>
+            <h1 className="heading-lg mb-4 sm:mb-6">
+              {"Let's"} build something <span className="gradient-text">great.</span>
             </h1>
-            <p className="text-base sm:text-lg text-ink-500 leading-relaxed mb-10">
+            <p className="text-sm sm:text-base lg:text-lg text-ink-500 leading-relaxed mb-8 sm:mb-10">
               Tell us about your project. We typically reply within one business day
               with next steps or a friendly heads-up.
             </p>
@@ -92,7 +92,7 @@ export default function Contact() {
               <ContactRow icon={MapPin} label="Studio" value="Remote · Worldwide" />
             </div>
 
-            <div className="mt-10 p-5 rounded-2xl bg-gradient-to-br from-ink-50 to-blue-50/40 border border-ink-100">
+            <div className="mt-8 sm:mt-10 p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-ink-50 to-blue-50/40 border border-ink-100">
               <div className="flex items-center gap-2 mb-2">
                 <span className="relative flex w-2 h-2">
                   <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75" />

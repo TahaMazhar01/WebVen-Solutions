@@ -29,7 +29,7 @@ export default function Navbar() {
       initial={{ y: -30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-5 lg:px-6 pt-3 sm:pt-4"
+      className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-4 lg:px-6 pt-2 sm:pt-3 lg:pt-4"
     >
       <div className="mx-auto max-w-7xl">
         <div
@@ -46,14 +46,14 @@ export default function Navbar() {
         >
           <Logo size="md" />
 
-          <nav className="hidden lg:flex items-center gap-1 bg-ink-50/60 rounded-full p-1 border border-ink-100">
+          <nav className="hidden lg:flex items-center gap-0.5 bg-ink-50/60 rounded-full p-1 border border-ink-100">
             {links.map((l) => (
               <NavLink
                 key={l.to}
                 to={l.to}
                 end={l.to === '/'}
                 className={({ isActive }) =>
-                  `relative px-5 py-2 text-sm font-medium rounded-full transition-colors ${
+                  `relative px-4 xl:px-5 py-2 text-sm font-medium rounded-full transition-colors ${
                     isActive ? 'text-white' : 'text-ink-600 hover:text-ink-900'
                   }`
                 }
