@@ -82,7 +82,7 @@ const projects = [
   {
     title: 'Pulse Analytics',
     tag: 'SaaS · Dashboard',
-    img: 'https://www.octoboard.com/assets/imports/octocat/octo-web-analytics-dashboard.png',
+    img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=85',
   },
 ]
 
