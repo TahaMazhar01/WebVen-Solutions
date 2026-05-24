@@ -61,7 +61,7 @@ const projects = [
   {
     title: 'ASHGroup Dubai',
     tag: 'Real Estate · Web',
-    img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1400&q=80',
+    img: 'https://cloud.famproperties.com/fam/blog/2107-161958.webp',
     featured: true,
   },
   {
@@ -77,12 +77,12 @@ const projects = [
   {
     title: 'Vertex Commerce',
     tag: 'E-commerce · SEO',
-    img: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80',
+    img: 'https://miro.medium.com/v2/resize:fit:4800/format:webp/1*VNoETQG1aBwujmj9qMBbLQ.png',
   },
   {
     title: 'Pulse Analytics',
     tag: 'SaaS · Dashboard',
-    img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80',
+    img: 'https://www.octoboard.com/assets/imports/octocat/octo-web-analytics-dashboard.png',
   },
 ]
 
@@ -261,7 +261,7 @@ export default function Home() {
             <div className="lg:col-span-5">
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-ink-900/10">
                 <img
-                  src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&q=80"
+                  src="https://cloud.famproperties.com/fam/blog/2107-161958.webp"
                   alt="ASHGroup Dubai"
                   className="w-full h-full object-cover"
                 />

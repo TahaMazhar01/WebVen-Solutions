@@ -46,11 +46,15 @@ const values = [
   },
 ]
 
+// Generated avatars (DiceBear — free, no signup, SVG)
+const avatarUrl = (seed) =>
+  `https://api.dicebear.com/9.x/personas/svg?seed=${encodeURIComponent(seed)}&backgroundColor=ddf4ff,e0e7ff,fce7f3,fef3c7,ecfccb,fee2e2&backgroundType=gradientLinear`
+
 const team = [
-  { name: 'Taha Mazhar', role: 'Founder & Lead Developer', img: 'https://i.pravatar.cc/400?img=12' },
-  { name: 'Sara Khan',  role: 'Engineering Lead',          img: 'https://i.pravatar.cc/400?img=20' },
-  { name: 'Jordan Lee', role: 'Motion & 3D Designer',      img: 'https://i.pravatar.cc/400?img=14' },
-  { name: 'Maya Patel', role: 'Growth & SEO Strategist',   img: 'https://i.pravatar.cc/400?img=23' },
+  { name: 'Taha Mazhar',    role: 'Founder & Lead Developer', img: avatarUrl('Taha-Mazhar-007') },
+  { name: 'Ayesha Asad',    role: 'Engineering Lead',         img: avatarUrl('Ayesha-Asad-Alpha') },
+  { name: 'Tayyab Mehmood', role: 'Motion & 3D Designer',     img: avatarUrl('Tayyab-Mehmood-One') },
+  { name: 'Ayesha Nadeem',  role: 'Growth & SEO Strategist',  img: avatarUrl('Ayesha-Nadeem-Studio') },
 ]
 
 export default function About() {
@@ -189,19 +193,22 @@ export default function About() {
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className="group"
             >
-              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 bg-ink-100">
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 bg-gradient-to-br from-blue-50 via-violet-50 to-indigo-50 border border-ink-100 group-hover:border-accent/30 transition-all duration-500">
+                {/* Avatar */}
                 <img
                   src={p.img}
                   alt={p.name}
-                  className="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-ink-950/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Decorative ring behind avatar */}
+                <div className="pointer-events-none absolute -inset-6 rounded-full bg-accent/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
                 {/* Social icons reveal on hover */}
-                <div className="absolute bottom-4 left-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
                   {[Linkedin, Twitter, Github].map((Ico, idx) => (
                     <span
                       key={idx}
-                      className="w-8 h-8 rounded-full bg-white/95 text-ink-900 flex items-center justify-center cursor-pointer hover:bg-accent hover:text-white transition-colors"
+                      className="w-8 h-8 rounded-full bg-ink-950 text-white flex items-center justify-center cursor-pointer hover:bg-accent transition-colors shadow-lg"
                     >
                       <Ico size={12} />
                     </span>
@@ -268,23 +275,27 @@ function StudioInMotion() {
             </div>
           )}
 
-          {/* Spline — centered, slightly scaled, no x-shift so robot stays in middle */}
+          {/* Spline — scaled + shifted up to cut the bottom rectangle/floor */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: loaded ? 1 : 0 }}
             transition={{ duration: 0.8 }}
-            className="absolute inset-0 scale-105 origin-center"
+            className="absolute inset-0 scale-[1.18] -translate-y-[8%] origin-center"
           >
             <Suspense fallback={null}>
               <Spline scene={STUDIO_SCENE} onLoad={() => setLoaded(true)} />
             </Suspense>
           </motion.div>
 
-          {/* Subtle bottom fade — hides Spline watermark only, not the robot */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-ink-950 to-transparent z-10" />
+          {/* Strong bottom fade — covers the rectangle/floor entirely */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-40 bg-gradient-to-t from-ink-950 via-ink-950/95 to-transparent z-10" />
 
-          {/* Watermark cover */}
-          <div className="pointer-events-none absolute bottom-3 right-3 w-36 h-10 rounded-md bg-ink-950 z-10" />
+          {/* Solid bottom bar — completely hides any residual rectangle */}
+          <div className="absolute inset-x-0 bottom-0 h-14 bg-ink-950 z-10 flex items-center justify-center border-t border-white/5">
+            <p className="text-[10px] uppercase tracking-[0.32em] text-white/40 font-semibold">
+              ★ Webven · Studio of motion ★
+            </p>
+          </div>
 
           {/* Soft top hint label */}
           <div className="pointer-events-none absolute top-5 left-5 z-10 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[10px] uppercase tracking-[0.22em] text-white/80 font-semibold">

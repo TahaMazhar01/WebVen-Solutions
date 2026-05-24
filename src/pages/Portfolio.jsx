@@ -11,7 +11,7 @@ const projects = [
     title: 'ASHGroup Dubai',
     tag: 'Real Estate · Web',
     cat: 'Web',
-    img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1400&q=80',
+    img: 'https://cloud.famproperties.com/fam/blog/2107-161958.webp',
     desc: 'Full digital revamp for a leading Dubai real-estate group.',
     featured: true,
   },
@@ -40,7 +40,7 @@ const projects = [
     title: 'Vertex Commerce',
     tag: 'E-commerce · SEO',
     cat: 'SEO',
-    img: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80',
+    img: 'https://miro.medium.com/v2/resize:fit:4800/format:webp/1*VNoETQG1aBwujmj9qMBbLQ.png',
     desc: 'Grew organic traffic 340% in 6 months.',
   },
   {

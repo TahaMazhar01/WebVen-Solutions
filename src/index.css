@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
@@ -10,6 +15,11 @@
   }
   body {
     @apply bg-white text-ink-900 font-sans;
+    position: relative;
+  }
+  #root {
+    width: 100%;
+    max-width: 100%;
     overflow-x: hidden;
   }
   ::selection {
