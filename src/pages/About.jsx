@@ -213,17 +213,25 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
+              whileHover={{ y: -6 }}
               className="group"
             >
-              <div className="aspect-[3/4] rounded-2xl overflow-hidden mb-4 bg-ink-100 relative">
+              <div className="aspect-[3/4] rounded-2xl overflow-hidden mb-4 bg-ink-100 relative shadow-lg shadow-ink-900/5 group-hover:shadow-xl group-hover:shadow-accent/10 transition-shadow duration-500">
                 <img
                   src={p.img}
                   alt={p.name}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-ink-950/0 to-ink-950/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <div className="flex items-center justify-center gap-3">
+                    <span className="w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-ink-900 text-xs">
+                      <ArrowUpRight size={14} />
+                    </span>
+                  </div>
+                </div>
               </div>
-              <h4 className="font-display font-semibold text-base sm:text-lg">{p.name}</h4>
+              <h4 className="font-display font-semibold text-base sm:text-lg group-hover:text-accent transition-colors">{p.name}</h4>
               <p className="text-xs sm:text-sm text-ink-500">{p.role}</p>
             </motion.div>
           ))}
@@ -231,15 +239,24 @@ export default function About() {
       </section>
 
       <section className="container-x pb-20">
-        <div className="rounded-3xl border border-ink-200 bg-gradient-to-br from-white to-indigo-50/30 p-8 sm:p-12 lg:p-16 text-center">
-          <h2 className="heading-lg mb-4">Want to work with us?</h2>
-          <p className="text-ink-500 mb-7 sm:mb-8 max-w-xl mx-auto">
-            We're always open to interesting projects and great collaborations.
-          </p>
-          <Link to="/contact" className="btn-primary">
-            Get in touch <ArrowUpRight size={16} />
-          </Link>
-        </div>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative overflow-hidden rounded-3xl border border-ink-200 bg-gradient-to-br from-white to-indigo-50/30 p-8 sm:p-12 lg:p-16 text-center"
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(99,102,241,0.06),transparent_50%)]" />
+          <div className="relative">
+            <h2 className="heading-lg mb-4">Want to work with us?</h2>
+            <p className="text-ink-500 mb-7 sm:mb-8 max-w-xl mx-auto">
+              {"We're"} always open to interesting projects and great collaborations.
+            </p>
+            <Link to="/contact" className="btn-primary">
+              Get in touch <ArrowUpRight size={16} />
+            </Link>
+          </div>
+        </motion.div>
       </section>
     </PageWrapper>
   )

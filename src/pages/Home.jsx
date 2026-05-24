@@ -148,18 +148,23 @@ export default function Home() {
                 transition={{ duration: 0.7, delay: 0.55 }}
                 className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-xl"
               >
-                {stats.map((s) => (
-                  <div
+                {stats.map((s, i) => (
+                  <motion.div
                     key={s.label}
-                    className="rounded-2xl border border-ink-100 bg-white/60 backdrop-blur px-4 py-3"
+                    whileHover={{ scale: 1.03, y: -2 }}
+                    transition={{ duration: 0.3 }}
+                    className="group relative rounded-2xl border border-ink-100 bg-white/80 backdrop-blur-md px-4 py-3 overflow-hidden hover:border-accent/30 hover:shadow-lg hover:shadow-accent/10 transition-all duration-500"
                   >
-                    <div className="font-display text-2xl sm:text-3xl font-bold text-ink-900">
-                      <CountUp to={s.value} suffix={s.suffix} />
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="relative">
+                      <div className="font-display text-2xl sm:text-3xl font-bold text-ink-900 group-hover:text-accent transition-colors duration-300">
+                        <CountUp to={s.value} suffix={s.suffix} />
+                      </div>
+                      <div className="text-[10px] sm:text-xs text-ink-500 uppercase tracking-wider mt-0.5">
+                        {s.label}
+                      </div>
                     </div>
-                    <div className="text-[10px] sm:text-xs text-ink-500 uppercase tracking-wider mt-0.5">
-                      {s.label}
-                    </div>
-                  </div>
+                  </motion.div>
                 ))}
               </motion.div>
             </div>
@@ -330,7 +335,7 @@ export default function Home() {
                 </div>
                 <Link
                   to="/services"
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:gap-2.5 transition-all"
+                  className="link-animated"
                 >
                   Learn more <ArrowUpRight size={14} />
                 </Link>
@@ -349,13 +354,16 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.07 }}
-                className="flex items-start gap-4 p-5 rounded-2xl border border-ink-100 hover:border-accent/30 hover:bg-blue-50/30 transition-colors"
+                whileHover={{ y: -4, scale: 1.02 }}
+                className="group relative flex items-start gap-4 p-5 rounded-2xl border border-ink-100 bg-white/80 backdrop-blur-sm transition-all duration-500 overflow-hidden hover:border-accent/30 hover:shadow-xl hover:shadow-accent/10"
               >
-                <IconBubble variant={['default', 'violet', 'amber', 'emerald'][i % 4]} size="sm" className="shrink-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <IconBubble variant={['default', 'violet', 'amber', 'emerald'][i % 4]} size="sm" className="shrink-0 relative z-10">
                   <Icon size={18} />
                 </IconBubble>
-                <div>
-                  <h4 className="font-display font-semibold text-sm mb-0.5">{f.label}</h4>
+                <div className="relative z-10">
+                  <h4 className="font-display font-semibold text-sm mb-0.5 group-hover:text-accent transition-colors">{f.label}</h4>
                   <p className="text-xs sm:text-sm text-ink-500 leading-relaxed">{f.desc}</p>
                 </div>
               </motion.div>
@@ -410,29 +418,46 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.08 }}
+              whileHover={{ y: -8 }}
               className={`group cursor-pointer ${p.featured ? 'md:col-span-2' : ''}`}
             >
-              <div className={`relative overflow-hidden rounded-2xl bg-ink-100 mb-5 ${
+              <div className={`relative overflow-hidden rounded-2xl bg-ink-100 mb-5 shadow-lg shadow-ink-900/5 ${
                 p.featured ? 'aspect-[16/9] sm:aspect-[16/7]' : 'aspect-[4/3]'
               }`}>
-                <img
+                <motion.img
                   src={p.img}
                   alt={p.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover"
+                  whileHover={{ scale: 1.08 }}
+                  transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
                 />
-                <div className="absolute inset-0 bg-ink-950/0 group-hover:bg-ink-950/15 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-ink-950/0 to-ink-950/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-transparent" />
+                </div>
                 {p.featured && (
-                  <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-[11px] font-bold text-accent uppercase tracking-[0.18em] shadow-sm">
+                  <motion.span 
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/95 backdrop-blur-sm text-[11px] font-bold text-accent uppercase tracking-[0.18em] shadow-lg shadow-ink-900/10"
+                  >
                     <BadgeCheck size={12} /> Featured
-                  </span>
+                  </motion.span>
                 )}
-                <div className="absolute top-4 right-4 w-11 h-11 rounded-full bg-white text-ink-900 flex items-center justify-center opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-500 shadow-md">
-                  <ArrowUpRight size={16} strokeWidth={2.5} />
+                <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white text-ink-900 flex items-center justify-center opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-500 shadow-xl shadow-ink-900/20">
+                  <ArrowUpRight size={18} strokeWidth={2.5} className="group-hover:rotate-45 transition-transform duration-300" />
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-5 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                  <div className="flex items-center gap-2 text-white/90 text-sm font-medium">
+                    <span className="w-8 h-px bg-white/60" />
+                    View Project
+                  </div>
                 </div>
               </div>
               <div className="px-1">
-                <p className="text-xs uppercase tracking-[0.18em] text-ink-400 mb-1.5">{p.tag}</p>
-                <h3 className="font-display text-xl sm:text-2xl font-semibold group-hover:text-accent transition-colors">{p.title}</h3>
+                <p className="text-xs uppercase tracking-[0.18em] text-ink-400 mb-1.5 group-hover:text-accent/70 transition-colors">{p.tag}</p>
+                <h3 className="font-display text-xl sm:text-2xl font-semibold group-hover:text-accent transition-colors duration-300">{p.title}</h3>
               </div>
             </motion.div>
           ))}
@@ -449,20 +474,45 @@ export default function Home() {
           className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-ink-950 text-white p-8 sm:p-12 lg:p-20 text-center"
         >
           <div className="absolute inset-0 opacity-40">
-            <div className="absolute top-0 left-1/4 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-accent/40 blur-3xl" />
-            <div className="absolute bottom-0 right-1/4 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-violet-500/30 blur-3xl" />
+            <motion.div 
+              animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.6, 0.4] }}
+              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute top-0 left-1/4 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-accent/40 blur-3xl" 
+            />
+            <motion.div 
+              animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3] }}
+              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+              className="absolute bottom-0 right-1/4 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-violet-500/30 blur-3xl" 
+            />
           </div>
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-accent/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-700" />
           <div className="relative">
-            <h2 className="heading-lg mb-5">Have a project in mind?</h2>
-            <p className="text-base sm:text-lg text-ink-300 max-w-2xl mx-auto mb-8 sm:mb-10">
-              Let's turn your idea into something real. We're booking new projects for next quarter.
-            </p>
+            <motion.h2 
+              className="heading-lg mb-5"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              Have a project in mind?
+            </motion.h2>
+            <motion.p 
+              className="text-base sm:text-lg text-ink-300 max-w-2xl mx-auto mb-8 sm:mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              {"Let's turn your idea into something real. We're booking new projects for next quarter."}
+            </motion.p>
             <MagneticButton>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-white text-ink-900 px-7 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold hover:bg-accent hover:text-white transition-all duration-300"
+                className="group relative inline-flex items-center gap-2 rounded-full bg-white text-ink-900 px-8 sm:px-10 py-4 sm:py-5 text-sm font-semibold overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-accent/30"
               >
-                Start a conversation <ArrowUpRight size={16} />
+                <span className="absolute inset-0 bg-gradient-to-r from-accent via-blue-400 to-accent bg-[length:200%_100%] opacity-0 group-hover:opacity-100 transition-opacity duration-500 group-hover:animate-[gradient-rotate_2s_linear_infinite]" />
+                <span className="relative z-10 group-hover:text-white transition-colors duration-300">Start a conversation</span>
+                <ArrowUpRight size={16} className="relative z-10 group-hover:text-white group-hover:rotate-45 transition-all duration-300" />
               </Link>
             </MagneticButton>
           </div>

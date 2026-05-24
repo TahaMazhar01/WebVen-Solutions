@@ -117,7 +117,7 @@ export default function Services() {
                 </ul>
                 <div className="pt-5 border-t border-ink-100 flex items-center justify-between">
                   <span className="font-display font-semibold">{s.price}</span>
-                  <Link to="/contact" className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:gap-2.5 transition-all">
+                  <Link to="/contact" className="link-animated">
                     Inquire <ArrowUpRight size={14} />
                   </Link>
                 </div>
@@ -161,15 +161,24 @@ export default function Services() {
       </section>
 
       <section className="container-x py-16 sm:py-24">
-        <div className="rounded-3xl bg-gradient-to-br from-ink-50 to-indigo-50/50 border border-ink-100 p-8 sm:p-12 lg:p-16 text-center">
-          <h2 className="heading-lg mb-4">Not sure which service fits?</h2>
-          <p className="text-ink-500 mb-7 sm:mb-8 max-w-xl mx-auto">
-            Book a free 30-minute call. We'll help you scope your project — no pressure.
-          </p>
-          <Link to="/contact" className="btn-primary">
-            Book a call <ArrowUpRight size={16} />
-          </Link>
-        </div>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-ink-50 to-indigo-50/50 border border-ink-100 p-8 sm:p-12 lg:p-16 text-center"
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(99,102,241,0.08),transparent_50%)]" />
+          <div className="relative">
+            <h2 className="heading-lg mb-4">Not sure which service fits?</h2>
+            <p className="text-ink-500 mb-7 sm:mb-8 max-w-xl mx-auto">
+              Book a free 30-minute call. {"We'll"} help you scope your project — no pressure.
+            </p>
+            <Link to="/contact" className="btn-primary">
+              Book a call <ArrowUpRight size={16} />
+            </Link>
+          </div>
+        </motion.div>
       </section>
     </PageWrapper>
   )
