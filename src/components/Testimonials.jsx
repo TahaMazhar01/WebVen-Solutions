@@ -4,10 +4,10 @@ import { Quote, Star } from 'lucide-react'
 const testimonials = [
   {
     quote:
-      "Webven delivered our entire property platform in 4 weeks. The AI chatbot they built handles 60% of our inquiries automatically. Worth every penny.",
-    name: 'Ahmed Sheikh',
-    role: 'CEO, ASHGroup Dubai',
-    avatar: 'https://i.pravatar.cc/200?img=33',
+      "Webven rebuilt our entire storefront from the ground up. Site speed went from 4s to 0.8s, and our checkout conversion lifted by 27% in the first month.",
+    name: 'Layla Rahman',
+    role: 'Founder, Vertex Commerce',
+    avatar: 'https://i.pravatar.cc/200?img=29',
     rating: 5,
   },
   {
