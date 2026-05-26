@@ -116,7 +116,7 @@ export default function Portfolio() {
                 transition={{ duration: 0.4, delay: i * 0.04 }}
                 className={`group cursor-pointer ${p.featured ? 'sm:col-span-2' : ''}`}
               >
-                <div className={`media-card mb-5 ${
+                <div className={`relative overflow-hidden rounded-2xl bg-ink-100 mb-5 ${
                   p.featured ? 'aspect-[16/9] sm:aspect-[16/7]' : 'aspect-[4/3]'
                 }`}>
                   <img
