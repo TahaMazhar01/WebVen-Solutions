@@ -47,10 +47,10 @@ const values = [
 ]
 
 const team = [
-  { name: 'Taha Mazhar',    role: 'Founder & Lead Developer', img: 'https://i.pravatar.cc/600?img=12' },
-  { name: 'Ayesha Asad',    role: 'Engineering Lead',         img: 'https://i.pravatar.cc/600?img=44' },
-  { name: 'Tayyab Mehmood', role: 'Motion & 3D Designer',     img: 'https://i.pravatar.cc/600?img=14' },
-  { name: 'Ayesha Nadeem',  role: 'Growth & SEO Strategist',  img: 'https://i.pravatar.cc/600?img=45' },
+  { name: 'Taha Mazhar',    role: 'Founder & Lead Developer', img: '/team/taha.jpg' },
+  { name: 'Ayesha Asad',    role: 'Engineering Lead',         img: '/team/ayesha-asad.jpg' },
+  { name: 'Tayyab Mehmood', role: 'Motion & 3D Designer',     img: '/team/tayyab.jpg' },
+  { name: 'Ayesha Nadeem',  role: 'Growth & SEO Strategist',  img: '/team/ayesha-nadeem.jpg' },
 ]
 
 export default function About() {
@@ -189,19 +189,20 @@ export default function About() {
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className="group"
             >
-              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 bg-ink-100">
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 bg-gradient-to-br from-ink-100 to-blue-50 border border-ink-100">
                 <img
                   src={p.img}
                   alt={p.name}
-                  className="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                 />
+                {/* Bottom gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-ink-950/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 {/* Social icons reveal on hover */}
                 <div className="absolute bottom-4 left-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
                   {[Linkedin, Twitter, Github].map((Ico, idx) => (
                     <span
                       key={idx}
-                      className="w-8 h-8 rounded-full bg-white/95 text-ink-900 flex items-center justify-center cursor-pointer hover:bg-accent hover:text-white transition-colors"
+                      className="w-8 h-8 rounded-full bg-white/95 text-ink-900 flex items-center justify-center cursor-pointer hover:bg-accent hover:text-white transition-colors shadow-lg"
                     >
                       <Ico size={12} />
                     </span>
