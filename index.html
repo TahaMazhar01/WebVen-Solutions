@@ -2,10 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0066ff" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Adaptive theme color (light + dark mode) -->
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0c" media="(prefers-color-scheme: dark)" />
+
+    <!-- Favicon — animated SVG with PNG fallbacks for every size -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate icon" type="image/png" href="/favicon-256.png" />
+    <link rel="icon" type="image/png" sizes="16x16"  href="/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32"  href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48"  href="/favicon-48.png" />
+    <link rel="icon" type="image/png" sizes="96x96"  href="/favicon-96.png" />
+    <link rel="shortcut icon" href="/favicon-32.png" />
+
+    <!-- iOS — Apple Touch Icon for home-screen installs -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Webven" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Android / Chrome — PWA support -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Windows tile -->
+    <meta name="msapplication-TileColor" content="#0066ff" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
 
     <!-- Primary meta -->
     <title>Webven</title>
@@ -29,11 +52,6 @@
     <meta name="twitter:title" content="Webven — Modern Web, Mobile & SEO Studio" />
     <meta name="twitter:description" content="Premium digital studio crafting modern websites, mobile apps and SEO strategies." />
     <meta name="twitter:image" content="https://webven.studio/og-image.jpg" />
-
-    <!-- Apple touch -->
-    <link rel="apple-touch-icon" href="/favicon.svg" />
-    <meta name="apple-mobile-web-app-title" content="Webven" />
-    <meta name="mobile-web-app-capable" content="yes" />
 
     <!-- Performance: preconnects + fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
