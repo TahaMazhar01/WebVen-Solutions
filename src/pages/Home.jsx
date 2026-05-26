@@ -67,12 +67,12 @@ const projects = [
   {
     title: 'Nova Finance',
     tag: 'Fintech · Web',
-    img: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=1200&q=80',
+    img: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1400&q=85',
   },
   {
     title: 'Orbital App',
     tag: 'SaaS · Mobile',
-    img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80',
+    img: 'https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=1400&q=85',
   },
   {
     title: 'Vertex Commerce',
@@ -120,8 +120,8 @@ export default function Home() {
                 transition={{ duration: 0.7, delay: 0.25 }}
                 className="text-base sm:text-lg text-ink-500 max-w-xl leading-relaxed mb-7"
               >
-                Webven is a small team of web developers crafting fast websites,
-                mobile apps, and AI-powered features for ambitious brands worldwide.
+                Webven is a digital studio crafting fast websites, mobile apps,
+                and AI-powered features for ambitious brands worldwide.
               </motion.p>
 
               <motion.div
@@ -413,7 +413,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: i * 0.08 }}
               className={`group cursor-pointer ${p.featured ? 'md:col-span-2' : ''}`}
             >
-              <div className={`relative overflow-hidden rounded-2xl bg-ink-100 mb-5 ${
+              <div className={`media-card mb-5 ${
                 p.featured ? 'aspect-[16/9] sm:aspect-[16/7]' : 'aspect-[4/3]'
               }`}>
                 <img
@@ -421,13 +421,22 @@ export default function Home() {
                   alt={p.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-ink-950/0 group-hover:bg-ink-950/15 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-ink-950/0 group-hover:bg-ink-950/20 transition-colors duration-500" />
+                {/* Browser-style bar overlay — makes every card feel like a real website */}
+                <div className="absolute top-0 left-0 right-0 h-7 bg-gradient-to-b from-white/95 to-white/85 backdrop-blur-md border-b border-ink-100 flex items-center px-3 gap-1.5 z-[5]">
+                  <span className="w-2 h-2 rounded-full bg-rose-400" />
+                  <span className="w-2 h-2 rounded-full bg-amber-400" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span className="ml-3 text-[9px] uppercase tracking-[0.18em] text-ink-500 font-semibold truncate">
+                    {p.title.toLowerCase().replace(/\s+/g, '')}.studio
+                  </span>
+                </div>
                 {p.featured && (
-                  <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-[11px] font-bold text-accent uppercase tracking-[0.18em] shadow-sm">
+                  <span className="absolute top-10 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-[11px] font-bold text-accent uppercase tracking-[0.18em] shadow-sm z-[6]">
                     <BadgeCheck size={12} /> Featured
                   </span>
                 )}
-                <div className="absolute top-4 right-4 w-11 h-11 rounded-full bg-white text-ink-900 flex items-center justify-center opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-500 shadow-md">
+                <div className="absolute top-10 right-4 w-11 h-11 rounded-full bg-white text-ink-900 flex items-center justify-center opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-500 shadow-md z-[6]">
                   <ArrowUpRight size={16} strokeWidth={2.5} />
                 </div>
               </div>

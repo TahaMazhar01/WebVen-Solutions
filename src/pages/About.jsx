@@ -64,8 +64,8 @@ export default function About() {
               <Sparkles size={12} /> About Webven
             </span>
             <h1 className="heading-xl mb-6">
-              A small studio with{' '}
-              <span className="gradient-text">big ambition.</span>
+              Crafting the modern{' '}
+              <span className="gradient-text">web.</span>
             </h1>
             <p className="text-base sm:text-xl text-ink-500 leading-relaxed max-w-3xl">
               Webven is a remote-first design and engineering studio. We partner with
@@ -112,15 +112,15 @@ export default function About() {
               and forgettable. We wanted to build a studio where craft mattered.
             </p>
             <p>
-              Eight years later, we've shipped over 120 projects — including a full
-              digital revamp for{' '}
-              <strong className="text-ink-900">ASHGroup Dubai</strong>. We've grown into
-              a tight-knit team of designers, engineers, and strategists who genuinely
-              love what we do.
+              We've shipped over 120 projects — including a full digital revamp for{' '}
+              <strong className="text-ink-900">ASHGroup Dubai</strong>. Our team brings
+              together designers, engineers, and strategists who genuinely love
+              what we do.
             </p>
             <p>
-              We're proud to stay small — it means you work directly with the people
-              building your product. No layers, no handoffs, no surprises.
+              You work directly with the people building your product —
+              no layers, no handoffs, no surprises. Just clean code,
+              thoughtful design, and on-time delivery.
             </p>
 
             {/* Pull-quote */}
