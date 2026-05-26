@@ -404,96 +404,93 @@ export default function Home() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-          {projects.map((p, i) => {
-            const slug = p.title.toLowerCase().replace(/\s+/g, '')
-            return (
-              <motion.div
-                key={p.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.08 }}
-                className={`group cursor-pointer ${p.featured ? 'md:col-span-2' : ''}`}
-              >
-                <div className={`media-card ${
-                  p.featured ? 'aspect-[16/10] sm:aspect-[16/8]' : 'aspect-[4/3]'
-                }`}>
-                  <div className="media-card-inner cinematic-card h-full">
-                    {/* ===== TOP BAR — fake-site chrome (logo / nav / CTA) ===== */}
-                    <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-4 sm:px-5 pt-4 sm:pt-5 pointer-events-none">
-                      {/* Mini logo */}
-                      <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-md bg-ink-900 flex items-center justify-center">
-                          <svg viewBox="0 0 32 32" className="w-4 h-4" fill="none">
-                            <path d="M4 8L9 24L16 12L23 24L28 8" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        </div>
-                        <span className="text-[10px] sm:text-xs font-bold tracking-tight text-ink-900">
-                          {p.title}
-                        </span>
-                      </div>
+          {projects.map((p, i) => (
+            <motion.div
+              key={p.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.08 }}
+              className={`group cursor-pointer ${p.featured ? 'md:col-span-2' : ''}`}
+            >
+              <div className={`media-card ${
+                p.featured ? 'aspect-[16/10] sm:aspect-[16/8]' : 'aspect-[4/3]'
+              }`}>
+                <div className="media-card-inner cinematic-card h-full">
+                  {/* ===== BACKGROUND IMAGE ===== */}
+                  <img
+                    src={p.img}
+                    alt={p.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.05]"
+                  />
 
-                      {/* Mini nav pill */}
-                      <div className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-full bg-white/80 backdrop-blur-md border border-ink-200/60 text-[9px] uppercase tracking-[0.15em] font-semibold text-ink-700 shadow-sm">
-                        <span className="px-1.5">Web</span>
-                        <span className="px-1.5">·</span>
-                        <span className="px-1.5">Mobile</span>
-                        <span className="px-1.5">·</span>
-                        <span className="px-1.5">AI</span>
-                      </div>
+                  {/* Top soft dark fade — chrome readability */}
+                  <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-ink-950/55 to-transparent z-10" />
 
-                      {/* Mini CTA */}
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-ink-900 text-white text-[9px] sm:text-[10px] uppercase tracking-wider font-bold shadow-md">
-                        Live
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      </div>
-                    </div>
+                  {/* Bottom dark gradient — title readability on ANY image */}
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-ink-950/95 via-ink-950/70 to-transparent z-10" />
 
-                    {/* ===== HUGE HEADLINE OVERLAY ===== */}
-                    <div className={`absolute left-0 right-0 z-20 px-4 sm:px-8 ${p.featured ? 'top-[22%] sm:top-[18%]' : 'top-[24%]'}`}>
-                      <h3 className={`font-display font-black uppercase tracking-tight text-ink-900 text-center leading-[0.95] ${
-                        p.featured
-                          ? 'text-3xl sm:text-5xl lg:text-7xl'
-                          : 'text-xl sm:text-3xl'
-                      }`}>
+                  {/* ===== TOP BAR ===== */}
+                  <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-4 sm:px-5 pt-4 sm:pt-5">
+                    {/* Mini logo */}
+                    <div className="flex items-center gap-2 bg-white/95 backdrop-blur rounded-full pl-1 pr-3 py-1 shadow-sm">
+                      <div className="w-5 h-5 rounded-full bg-ink-900 flex items-center justify-center">
+                        <svg viewBox="0 0 32 32" className="w-3.5 h-3.5" fill="none">
+                          <path d="M4 8L9 24L16 12L23 24L28 8" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      <span className="text-[10px] font-bold tracking-tight text-ink-900 truncate max-w-[120px]">
                         {p.title}
-                      </h3>
-                      <p className={`text-center text-ink-500 font-medium mt-2 sm:mt-3 ${
-                        p.featured ? 'text-xs sm:text-sm tracking-[0.3em]' : 'text-[10px] tracking-[0.25em]'
-                      } uppercase`}>
-                        {p.tag}
-                      </p>
+                      </span>
                     </div>
 
-                    {/* ===== BACKGROUND IMAGE ===== */}
-                    <img
-                      src={p.img}
-                      alt={p.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]"
-                    />
+                    {/* Mini nav pill */}
+                    <div className="hidden sm:flex items-center gap-1 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/30 text-[9px] uppercase tracking-[0.15em] font-semibold text-white shadow-sm">
+                      <span>Web</span><span className="opacity-50">·</span>
+                      <span>Mobile</span><span className="opacity-50">·</span>
+                      <span>AI</span>
+                    </div>
 
-                    {/* Soft top fade (so headline stays readable) */}
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/70 to-transparent z-10" />
+                    {/* Live CTA */}
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/20 backdrop-blur border border-emerald-400/40 text-emerald-300 text-[9px] sm:text-[10px] uppercase tracking-wider font-bold">
+                      Live
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    </div>
+                  </div>
 
-                    {/* Bottom fade — signature cinematic look */}
-                    <div className="cinematic-fade" />
+                  {/* ===== HEADLINE (bottom) — always white on dark gradient ===== */}
+                  <div className="absolute left-0 right-0 bottom-0 z-20 px-5 sm:px-7 pb-6 sm:pb-8">
+                    <p className={`uppercase font-bold mb-2 ${
+                      p.featured ? 'text-xs tracking-[0.32em]' : 'text-[10px] tracking-[0.25em]'
+                    } text-accent`}>
+                      {p.tag}
+                    </p>
+                    <h3 className={`font-display font-black tracking-tight text-white leading-[0.95] ${
+                      p.featured
+                        ? 'text-4xl sm:text-5xl lg:text-6xl'
+                        : 'text-2xl sm:text-3xl'
+                    }`}
+                    style={{ textShadow: '0 2px 20px rgba(0,0,0,0.4)' }}>
+                      {p.title}
+                    </h3>
 
-                    {/* Featured badge */}
-                    {p.featured && (
-                      <span className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-ink-900 text-white text-[10px] font-bold uppercase tracking-[0.22em] shadow-xl">
-                        <BadgeCheck size={12} /> Featured Project
-                      </span>
-                    )}
+                    {/* Bottom row — featured badge + arrow */}
+                    <div className="flex items-end justify-between mt-4 sm:mt-5">
+                      {p.featured ? (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur border border-white/25 text-white text-[10px] font-bold uppercase tracking-[0.22em]">
+                          <BadgeCheck size={12} /> Featured Project
+                        </span>
+                      ) : <span />}
 
-                    {/* Arrow button — bottom right, appears on hover */}
-                    <div className="absolute bottom-5 right-5 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-ink-900 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-500 shadow-xl">
-                      <ArrowUpRight size={16} strokeWidth={2.5} />
+                      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white text-ink-900 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-3 group-hover:translate-x-0 group-hover:rotate-45 transition-all duration-500 shadow-xl">
+                        <ArrowUpRight size={16} strokeWidth={2.5} />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            )
-          })}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 

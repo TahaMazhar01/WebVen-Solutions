@@ -147,13 +147,8 @@
 
   /* Cinematic showcase card (hero-style project) */
   .cinematic-card {
-    @apply relative rounded-3xl overflow-hidden bg-gradient-to-b from-ink-50 to-white;
+    @apply relative rounded-3xl overflow-hidden bg-ink-900;
     box-shadow: 0 30px 60px -30px rgba(0,102,255,0.25);
-  }
-  .cinematic-fade {
-    @apply pointer-events-none absolute inset-x-0 bottom-0 z-20;
-    height: 35%;
-    background: linear-gradient(to top, rgb(255,255,255) 0%, rgba(255,255,255,0.85) 30%, transparent 100%);
   }
 
   /* Browser frame for website mockups */
