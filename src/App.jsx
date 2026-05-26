@@ -13,12 +13,17 @@ import ScrollToTop from './components/ScrollToTop'
 import ScrollProgress from './components/ScrollProgress'
 import SplashScreen from './components/SplashScreen'
 import BackToTop from './components/BackToTop'
+import SmoothScroll from './components/SmoothScroll'
+import CustomCursor from './components/CustomCursor'
+import WhatsAppButton from './components/WhatsAppButton'
 
 export default function App() {
   const location = useLocation()
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SmoothScroll />
+      <CustomCursor />
       <SplashScreen />
       <ScrollToTop />
       <ScrollProgress />
@@ -38,6 +43,7 @@ export default function App() {
       </main>
       <Footer />
       <BackToTop />
+      <WhatsAppButton />
     </div>
   )
 }

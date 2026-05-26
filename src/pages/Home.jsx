@@ -18,6 +18,8 @@ import PageWrapper from '../components/PageWrapper'
 import CountUp from '../components/CountUp'
 import MagneticButton from '../components/MagneticButton'
 import IconBubble from '../components/IconBubble'
+import BentoSection from '../components/BentoSection'
+import Testimonials from '../components/Testimonials'
 
 const services = [
   {
@@ -364,6 +366,12 @@ export default function Home() {
           })}
         </div>
       </section>
+
+      {/* ===== BENTO GRID ===== */}
+      <BentoSection />
+
+      {/* ===== TESTIMONIALS ===== */}
+      <Testimonials />
 
       {/* ===== STATS DARK BAR ===== */}
       <section className="py-14 sm:py-16 bg-gradient-to-br from-ink-950 via-ink-900 to-blue-950 text-white">
