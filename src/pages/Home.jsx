@@ -403,49 +403,97 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
-          {projects.map((p, i) => (
-            <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              className={`group cursor-pointer ${p.featured ? 'md:col-span-2' : ''}`}
-            >
-              <div className={`media-card mb-5 ${
-                p.featured ? 'aspect-[16/9] sm:aspect-[16/7]' : 'aspect-[4/3]'
-              }`}>
-                <img
-                  src={p.img}
-                  alt={p.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-ink-950/0 group-hover:bg-ink-950/20 transition-colors duration-500" />
-                {/* Browser-style bar overlay — makes every card feel like a real website */}
-                <div className="absolute top-0 left-0 right-0 h-7 bg-gradient-to-b from-white/95 to-white/85 backdrop-blur-md border-b border-ink-100 flex items-center px-3 gap-1.5 z-[5]">
-                  <span className="w-2 h-2 rounded-full bg-rose-400" />
-                  <span className="w-2 h-2 rounded-full bg-amber-400" />
-                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span className="ml-3 text-[9px] uppercase tracking-[0.18em] text-ink-500 font-semibold truncate">
-                    {p.title.toLowerCase().replace(/\s+/g, '')}.studio
-                  </span>
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+          {projects.map((p, i) => {
+            const slug = p.title.toLowerCase().replace(/\s+/g, '')
+            return (
+              <motion.div
+                key={p.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.08 }}
+                className={`group cursor-pointer ${p.featured ? 'md:col-span-2' : ''}`}
+              >
+                <div className={`media-card ${
+                  p.featured ? 'aspect-[16/10] sm:aspect-[16/8]' : 'aspect-[4/3]'
+                }`}>
+                  <div className="media-card-inner cinematic-card h-full">
+                    {/* ===== TOP BAR — fake-site chrome (logo / nav / CTA) ===== */}
+                    <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-4 sm:px-5 pt-4 sm:pt-5 pointer-events-none">
+                      {/* Mini logo */}
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-md bg-ink-900 flex items-center justify-center">
+                          <svg viewBox="0 0 32 32" className="w-4 h-4" fill="none">
+                            <path d="M4 8L9 24L16 12L23 24L28 8" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                        <span className="text-[10px] sm:text-xs font-bold tracking-tight text-ink-900">
+                          {p.title}
+                        </span>
+                      </div>
+
+                      {/* Mini nav pill */}
+                      <div className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-full bg-white/80 backdrop-blur-md border border-ink-200/60 text-[9px] uppercase tracking-[0.15em] font-semibold text-ink-700 shadow-sm">
+                        <span className="px-1.5">Web</span>
+                        <span className="px-1.5">·</span>
+                        <span className="px-1.5">Mobile</span>
+                        <span className="px-1.5">·</span>
+                        <span className="px-1.5">AI</span>
+                      </div>
+
+                      {/* Mini CTA */}
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-ink-900 text-white text-[9px] sm:text-[10px] uppercase tracking-wider font-bold shadow-md">
+                        Live
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      </div>
+                    </div>
+
+                    {/* ===== HUGE HEADLINE OVERLAY ===== */}
+                    <div className={`absolute left-0 right-0 z-20 px-4 sm:px-8 ${p.featured ? 'top-[22%] sm:top-[18%]' : 'top-[24%]'}`}>
+                      <h3 className={`font-display font-black uppercase tracking-tight text-ink-900 text-center leading-[0.95] ${
+                        p.featured
+                          ? 'text-3xl sm:text-5xl lg:text-7xl'
+                          : 'text-xl sm:text-3xl'
+                      }`}>
+                        {p.title}
+                      </h3>
+                      <p className={`text-center text-ink-500 font-medium mt-2 sm:mt-3 ${
+                        p.featured ? 'text-xs sm:text-sm tracking-[0.3em]' : 'text-[10px] tracking-[0.25em]'
+                      } uppercase`}>
+                        {p.tag}
+                      </p>
+                    </div>
+
+                    {/* ===== BACKGROUND IMAGE ===== */}
+                    <img
+                      src={p.img}
+                      alt={p.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]"
+                    />
+
+                    {/* Soft top fade (so headline stays readable) */}
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/70 to-transparent z-10" />
+
+                    {/* Bottom fade — signature cinematic look */}
+                    <div className="cinematic-fade" />
+
+                    {/* Featured badge */}
+                    {p.featured && (
+                      <span className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-ink-900 text-white text-[10px] font-bold uppercase tracking-[0.22em] shadow-xl">
+                        <BadgeCheck size={12} /> Featured Project
+                      </span>
+                    )}
+
+                    {/* Arrow button — bottom right, appears on hover */}
+                    <div className="absolute bottom-5 right-5 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-ink-900 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-500 shadow-xl">
+                      <ArrowUpRight size={16} strokeWidth={2.5} />
+                    </div>
+                  </div>
                 </div>
-                {p.featured && (
-                  <span className="absolute top-10 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-[11px] font-bold text-accent uppercase tracking-[0.18em] shadow-sm z-[6]">
-                    <BadgeCheck size={12} /> Featured
-                  </span>
-                )}
-                <div className="absolute top-10 right-4 w-11 h-11 rounded-full bg-white text-ink-900 flex items-center justify-center opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-500 shadow-md z-[6]">
-                  <ArrowUpRight size={16} strokeWidth={2.5} />
-                </div>
-              </div>
-              <div className="px-1">
-                <p className="text-xs uppercase tracking-[0.18em] text-ink-400 mb-1.5">{p.tag}</p>
-                <h3 className="font-display text-xl sm:text-2xl font-semibold group-hover:text-accent transition-colors">{p.title}</h3>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            )
+          })}
         </div>
       </section>
 
