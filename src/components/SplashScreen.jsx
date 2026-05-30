@@ -1,5 +1,6 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import * as THREE from 'three'
 
 const PROGRESS_DURATION = 2700
 const HOLD_AT_100 = 700
@@ -8,109 +9,113 @@ const TOTAL = PROGRESS_DURATION + HOLD_AT_100
 
 const statusMessages = [
   { at: 0,   text: 'INITIALIZING' },
-  { at: 22,  text: 'CONNECTING' },
-  { at: 45,  text: 'LOADING ASSETS' },
-  { at: 68,  text: 'PREPARING SCENE' },
-  { at: 88,  text: 'ALMOST READY' },
+  { at: 25,  text: 'LOADING ASSETS' },
+  { at: 55,  text: 'PREPARING SCENE' },
+  { at: 80,  text: 'ALMOST READY' },
   { at: 100, text: 'WELCOME' },
 ]
 
-// ===== Animated Sine-Wave Progress =====
-function WaveProgress({ progress }) {
-  const [phase, setPhase] = useState(0)
+/* ===== Ripple shader (adapted from @aliimam · Webven palette) ===== */
+const VERTEX_SRC = `void main() { gl_Position = vec4(position, 1.0); }`
+const FRAGMENT_SRC = `
+  #define TWO_PI 6.2831853072
+  #define PI 3.14159265359
+  precision highp float;
+  uniform vec2 resolution;
+  uniform float time;
+
+  void main(void) {
+    vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
+    float t = time * 0.05;
+    float lineWidth = 0.002;
+    vec3 color = vec3(0.0);
+
+    // 3 channels with slight time offsets — creates color separation in ripples
+    for (int j = 0; j < 3; j++) {
+      for (int i = 0; i < 5; i++) {
+        color[j] += lineWidth * float(i*i)
+          / abs(fract(t - 0.01 * float(j) + float(i) * 0.01) * 5.0
+                - length(uv) + mod(uv.x + uv.y, 0.2));
+      }
+    }
+
+    // Webven palette tint — blue, violet, white
+    vec3 col =
+        color[0] * vec3(0.30, 0.45, 1.00)   // blue ripples
+      + color[1] * vec3(0.65, 0.55, 1.00)   // violet ripples
+      + color[2] * vec3(0.95, 0.97, 1.00);  // white highlights
+
+    gl_FragColor = vec4(col, 1.0);
+  }
+`
+
+function RippleCanvas() {
+  const containerRef = useRef(null)
+
   useEffect(() => {
-    const id = setInterval(() => setPhase((p) => p + 0.08), 30)
-    return () => clearInterval(id)
+    if (!containerRef.current) return
+    const container = containerRef.current
+
+    const camera = new THREE.Camera()
+    camera.position.z = 1
+    const scene = new THREE.Scene()
+    const geometry = new THREE.PlaneGeometry(2, 2)
+    const uniforms = {
+      time: { value: 1.0 },
+      resolution: { value: new THREE.Vector2() },
+    }
+    const material = new THREE.ShaderMaterial({
+      uniforms,
+      vertexShader: VERTEX_SRC,
+      fragmentShader: FRAGMENT_SRC,
+    })
+    const mesh = new THREE.Mesh(geometry, material)
+    scene.add(mesh)
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true })
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    container.appendChild(renderer.domElement)
+
+    const onResize = () => {
+      const w = container.clientWidth
+      const h = container.clientHeight
+      renderer.setSize(w, h)
+      uniforms.resolution.value.x = renderer.domElement.width
+      uniforms.resolution.value.y = renderer.domElement.height
+    }
+    onResize()
+    window.addEventListener('resize', onResize)
+
+    let raf
+    const animate = () => {
+      raf = requestAnimationFrame(animate)
+      uniforms.time.value += 0.05
+      renderer.render(scene, camera)
+    }
+    animate()
+
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('resize', onResize)
+      if (container && renderer.domElement && container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement)
+      }
+      renderer.dispose()
+      geometry.dispose()
+      material.dispose()
+    }
   }, [])
 
-  const W = 360
-  const H = 70
-  const CY = H / 2
-  const AMP = 14
-  const CYCLES = 3.5
-  const STEP = 2
-
-  const pathFromAmp = (amp, phaseShift, freqMod = 1) => {
-    let d = `M 0 ${CY}`
-    for (let x = 0; x <= W; x += STEP) {
-      const t = (x / W) * Math.PI * 2 * CYCLES * freqMod + phase + phaseShift
-      const y = CY + Math.sin(t) * amp * (0.6 + 0.4 * Math.sin(t * 0.5))
-      d += ` L ${x.toFixed(1)} ${y.toFixed(2)}`
-    }
-    return d
-  }
-
-  const mainPath = useMemo(() => pathFromAmp(AMP, 0), [phase])
-  const subPath = useMemo(() => pathFromAmp(AMP * 0.7, 0.6, 1.3), [phase])
-
-  const fillX = (progress / 100) * W
-  const fillY =
-    CY + Math.sin((fillX / W) * Math.PI * 2 * CYCLES + phase) * AMP * 0.85
-
   return (
-    <svg viewBox={`-4 -4 ${W + 8} ${H + 8}`} className="w-full h-20 sm:h-24">
-      <defs>
-        <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#0066ff" />
-          <stop offset="0.5" stopColor="#a78bfa" />
-          <stop offset="1" stopColor="#0066ff" />
-        </linearGradient>
-        <clipPath id="waveClip">
-          <rect x="0" y="-10" width={fillX} height={H + 20} />
-        </clipPath>
-        <filter id="waveGlow">
-          <feGaussianBlur stdDeviation="3" />
-        </filter>
-      </defs>
-
-      {/* Faint subwave (background depth) */}
-      <path
-        d={subPath}
-        fill="none"
-        stroke="rgba(255,255,255,0.08)"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      {/* Faint main wave */}
-      <path
-        d={mainPath}
-        fill="none"
-        stroke="rgba(255,255,255,0.14)"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-      />
-
-      {/* Glow halo of filled portion */}
-      <g clipPath="url(#waveClip)">
-        <path
-          d={mainPath}
-          fill="none"
-          stroke="url(#waveGrad)"
-          strokeWidth="9"
-          strokeLinecap="round"
-          opacity="0.35"
-          filter="url(#waveGlow)"
-        />
-        {/* Sharp colored wave */}
-        <path
-          d={mainPath}
-          fill="none"
-          stroke="url(#waveGrad)"
-          strokeWidth="3"
-          strokeLinecap="round"
-        />
-      </g>
-
-      {/* Leading pulse dot */}
-      <circle cx={fillX} cy={fillY} r="6" fill="#fff" opacity="0.3">
-        <animate attributeName="r" values="5;10;5" dur="1.2s" repeatCount="indefinite" />
-      </circle>
-      <circle cx={fillX} cy={fillY} r="3.5" fill="#fff" />
-    </svg>
+    <div
+      ref={containerRef}
+      className="absolute inset-0 w-full h-full"
+      style={{ background: '#000' }}
+    />
   )
 }
 
-// ===== Splash =====
+/* ===== Splash Screen ===== */
 export default function SplashScreen() {
   const [show, setShow] = useState(true)
   const [progress, setProgress] = useState(0)
@@ -132,9 +137,7 @@ export default function SplashScreen() {
 
   useEffect(() => {
     document.body.style.overflow = show ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
+    return () => { document.body.style.overflow = '' }
   }, [show])
 
   const status = statusMessages.reduce(
@@ -150,174 +153,102 @@ export default function SplashScreen() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.05 }}
           transition={{ duration: FADE_DURATION / 1000, ease: [0.65, 0, 0.35, 1] }}
-          className="fixed inset-0 z-[200] bg-ink-950 flex flex-col items-center justify-center overflow-hidden"
+          className="fixed inset-0 z-[200] overflow-hidden"
         >
-          {/* Tech grid */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.05]"
-            style={{
-              backgroundImage:
-                'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-              backgroundSize: '80px 80px',
-            }}
-          />
+          {/* Background shader */}
+          <RippleCanvas />
 
-          {/* Aurora glows */}
-          <motion.div
-            animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.7, 0.5] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            className="pointer-events-none absolute w-[700px] h-[700px] rounded-full bg-accent/20 blur-3xl"
-          />
-          <motion.div
-            animate={{ scale: [1.1, 1, 1.1], opacity: [0.4, 0.6, 0.4] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-            className="pointer-events-none absolute w-[500px] h-[500px] rounded-full bg-violet-500/20 blur-3xl translate-x-32 translate-y-32"
-          />
+          {/* Soft vignette to focus the center */}
+          <div className="pointer-events-none absolute inset-0 bg-radial-vignette"
+               style={{ background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 100%)' }} />
 
-          {/* Horizontal scanning line */}
-          <motion.div
-            animate={{ y: ['-100%', '100vh'] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
-            className="pointer-events-none absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/70 to-transparent shadow-[0_0_12px_2px_rgba(0,102,255,0.6)]"
-          />
+          {/* ===== Center content ===== */}
+          <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 text-center">
 
-          {/* Corner brackets */}
-          <CornerBracket position="top-6 left-6 sm:top-10 sm:left-10" rotate={0} />
-          <CornerBracket position="top-6 right-6 sm:top-10 sm:right-10" rotate={90} />
-          <CornerBracket position="bottom-6 left-6 sm:bottom-10 sm:left-10" rotate={-90} />
-          <CornerBracket position="bottom-6 right-6 sm:bottom-10 sm:right-10" rotate={180} />
-
-          {/* Floating dots */}
-          {Array.from({ length: 30 }).map((_, i) => {
-            const left = (i * 53) % 100
-            const top = (i * 31) % 100
-            return (
-              <motion.span
-                key={i}
-                className="absolute w-1 h-1 rounded-full bg-accent/70"
-                style={{ left: `${left}%`, top: `${top}%` }}
-                animate={{ opacity: [0.15, 0.8, 0.15], scale: [1, 1.6, 1] }}
-                transition={{
-                  duration: 2 + (i % 4),
-                  repeat: Infinity,
-                  delay: i * 0.08,
-                  ease: 'easeInOut',
-                }}
-              />
-            )
-          })}
-
-          {/* ===== CONTENT ===== */}
-          <div className="relative z-10 text-center px-6 w-full max-w-md">
-            {/* Logo with progress ring */}
-            <div className="relative mx-auto mb-7 w-32 h-32">
-              <svg className="absolute inset-0 -rotate-90" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="46" stroke="rgba(255,255,255,0.06)" strokeWidth="1.5" fill="none" />
-                <motion.circle
-                  cx="50" cy="50" r="46"
-                  stroke="url(#splashProgressG)"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeDasharray={2 * Math.PI * 46}
-                  strokeDashoffset={2 * Math.PI * 46 * (1 - progress / 100)}
-                  style={{ transition: 'stroke-dashoffset 0.1s linear' }}
-                />
+            {/* Logo W mark — glassy badge */}
+            <motion.div
+              initial={{ scale: 0.6, opacity: 0, rotate: -180 }}
+              animate={{ scale: 1, opacity: 1, rotate: 0 }}
+              transition={{ duration: 0.9, ease: [0.34, 1.56, 0.64, 1] }}
+              className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden flex items-center justify-center shadow-2xl shadow-accent/40 backdrop-blur-md mb-7"
+              style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.18)' }}
+            >
+              <svg viewBox="0 0 32 32" className="w-14 h-14 sm:w-16 sm:h-16 relative z-10" fill="none">
                 <defs>
-                  <linearGradient id="splashProgressG" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stopColor="#0066ff" />
+                  <linearGradient id="splashWG" x1="0" y1="0" x2="32" y2="32">
+                    <stop offset="0" stopColor="#ffffff" />
                     <stop offset="1" stopColor="#a78bfa" />
                   </linearGradient>
                 </defs>
-              </svg>
-
-              <motion.div
-                initial={{ scale: 0.5, opacity: 0, rotate: -180 }}
-                animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                transition={{ duration: 0.9, ease: [0.34, 1.56, 0.64, 1] }}
-                className="absolute inset-3 rounded-2xl overflow-hidden flex items-center justify-center"
-                style={{
-                  background:
-                    'conic-gradient(from 0deg, #0a0a0c, #0066ff, #3b82f6, #0066ff, #0a0a0c)',
-                }}
-              >
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      'conic-gradient(from 0deg, transparent, rgba(167,139,250,0.6), transparent 30%)',
-                  }}
+                <motion.path
+                  d="M4 8L9 24L16 12L23 24L28 8"
+                  stroke="url(#splashWG)"
+                  strokeWidth="3.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 1.3, delay: 0.3, ease: 'easeInOut' }}
                 />
-                <div className="absolute inset-[2px] rounded-[14px] bg-gradient-to-br from-ink-900 via-ink-950 to-blue-950 flex items-center justify-center">
-                  <svg viewBox="0 0 32 32" className="w-14 h-14" fill="none">
-                    <defs>
-                      <linearGradient id="splashLogoG2" x1="0" y1="0" x2="32" y2="32">
-                        <stop offset="0" stopColor="#ffffff" />
-                        <stop offset="1" stopColor="#3b82f6" />
-                      </linearGradient>
-                    </defs>
-                    <motion.path
-                      d="M4 8L9 24L16 12L23 24L28 8"
-                      stroke="url(#splashLogoG2)"
-                      strokeWidth="3.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 1.3, delay: 0.3, ease: 'easeInOut' }}
-                    />
-                    <motion.circle
-                      cx="28" cy="8" r="2.4" fill="#34d399"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 1.5, type: 'spring', stiffness: 300 }}
-                    >
-                      <animate attributeName="r" values="2.4;3.2;2.4" dur="2.2s" repeatCount="indefinite" />
-                    </motion.circle>
-                  </svg>
-                </div>
-              </motion.div>
-            </div>
+                <motion.circle
+                  cx="28" cy="8" r="2.6" fill="#34d399"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 1.5, type: 'spring', stiffness: 300 }}
+                >
+                  <animate attributeName="r" values="2.6;3.4;2.6" dur="2.2s" repeatCount="indefinite" />
+                </motion.circle>
+              </svg>
+            </motion.div>
 
-            {/* WEBVEN letters */}
+            {/* WEBVEN letters — staggered drop */}
             <div className="flex items-center justify-center gap-1 sm:gap-1.5 mb-2 overflow-hidden">
               {letters.map((char, i) => (
                 <motion.span
                   key={i}
-                  initial={{ y: 60, opacity: 0, rotateX: -90 }}
-                  animate={{ y: 0, opacity: 1, rotateX: 0 }}
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
                   transition={{
                     duration: 0.7,
                     delay: 0.6 + i * 0.07,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="font-display font-black text-4xl sm:text-5xl text-white tracking-tight inline-block"
-                  style={{ textShadow: '0 0 30px rgba(0,102,255,0.3)' }}
+                  className="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight inline-block"
+                  style={{ textShadow: '0 0 24px rgba(167,139,250,0.5)' }}
                 >
                   {char}
                 </motion.span>
               ))}
             </div>
 
+            {/* Sublabel */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.3, duration: 0.5 }}
-              className="text-[10px] sm:text-xs text-white/40 uppercase tracking-[0.5em] font-semibold mb-7"
+              className="text-[10px] sm:text-xs text-white/65 uppercase tracking-[0.5em] font-semibold mb-10"
             >
               Digital · Studio
             </motion.p>
 
-            {/* === WAVE PROGRESS === */}
+            {/* Slim progress bar — frosted */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.5, duration: 0.6 }}
-              className="w-full"
+              className="relative w-64 sm:w-80 h-[3px] bg-white/12 rounded-full overflow-hidden backdrop-blur-md"
             >
-              <WaveProgress progress={progress} />
+              <motion.div
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-white via-accent to-white rounded-full shadow-lg shadow-accent/40"
+                style={{ width: `${progress}%` }}
+              >
+                {/* Shimmer */}
+                <motion.div
+                  animate={{ x: ['-100%', '300%'] }}
+                  transition={{ duration: 1.6, repeat: Infinity, ease: 'linear' }}
+                  className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/80 to-transparent"
+                />
+              </motion.div>
             </motion.div>
 
             {/* Status + percent */}
@@ -325,11 +256,11 @@ export default function SplashScreen() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.7 }}
-              className="mt-2 flex items-center justify-between"
+              className="mt-4 flex items-center justify-between w-64 sm:w-80"
             >
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                <span className="text-[10px] sm:text-xs text-white/60 font-mono tracking-[0.22em] uppercase">
+                <span className="text-[10px] sm:text-xs text-white/65 font-mono tracking-[0.22em] uppercase">
                   {status}
                 </span>
               </div>
@@ -340,45 +271,27 @@ export default function SplashScreen() {
             </motion.div>
           </div>
 
-          {/* Bottom-left version */}
+          {/* Bottom corner tags */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.9 }}
-            className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 flex items-center gap-2 text-[10px] text-white/30 font-mono tracking-wider"
+            className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 flex items-center gap-2 text-[10px] text-white/40 font-mono tracking-wider"
           >
             <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
             v1.0.0 · build {new Date().getFullYear()}
           </motion.div>
 
-          {/* Bottom-right copyright */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.9 }}
-            className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 text-[10px] text-white/30 font-mono tracking-wider"
+            className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 text-[10px] text-white/40 font-mono tracking-wider"
           >
             © Webven Studio
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
-
-function CornerBracket({ position, rotate }) {
-  return (
-    <motion.svg
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
-      width="36" height="36" viewBox="0 0 32 32"
-      className={`pointer-events-none absolute ${position}`}
-      style={{ transform: `rotate(${rotate}deg)` }}
-      fill="none"
-    >
-      <path d="M 2 16 L 2 2 L 16 2" stroke="rgba(0,102,255,0.6)" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="2" cy="2" r="1.5" fill="rgba(0,102,255,0.6)" />
-    </motion.svg>
   )
 }
