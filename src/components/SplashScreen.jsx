@@ -15,35 +15,34 @@ const statusMessages = [
   { at: 100, text: 'WELCOME' },
 ]
 
-/* ===== Ripple shader (adapted from @aliimam · Webven palette) ===== */
+/* ===== Ripple shader (adapted from @aliimam · Webven palette · OPTIMIZED) ===== */
 const VERTEX_SRC = `void main() { gl_Position = vec4(position, 1.0); }`
 const FRAGMENT_SRC = `
-  #define TWO_PI 6.2831853072
-  #define PI 3.14159265359
-  precision highp float;
+  precision mediump float;
   uniform vec2 resolution;
   uniform float time;
 
   void main(void) {
     vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
     float t = time * 0.05;
-    float lineWidth = 0.002;
+    float lineWidth = 0.0025;
     vec3 color = vec3(0.0);
+    float L = length(uv);
+    float M = mod(uv.x + uv.y, 0.2);
 
-    // 3 channels with slight time offsets — creates color separation in ripples
+    // 3 channels × 3 iterations = 9 ops (was 15) — much lighter
     for (int j = 0; j < 3; j++) {
-      for (int i = 0; i < 5; i++) {
+      for (int i = 0; i < 3; i++) {
         color[j] += lineWidth * float(i*i)
-          / abs(fract(t - 0.01 * float(j) + float(i) * 0.01) * 5.0
-                - length(uv) + mod(uv.x + uv.y, 0.2));
+          / abs(fract(t - 0.01 * float(j) + float(i) * 0.015) * 5.0 - L + M);
       }
     }
 
-    // Webven palette tint — blue, violet, white
+    // Webven palette tint
     vec3 col =
-        color[0] * vec3(0.30, 0.45, 1.00)   // blue ripples
-      + color[1] * vec3(0.65, 0.55, 1.00)   // violet ripples
-      + color[2] * vec3(0.95, 0.97, 1.00);  // white highlights
+        color[0] * vec3(0.30, 0.45, 1.00)
+      + color[1] * vec3(0.65, 0.55, 1.00)
+      + color[2] * vec3(0.95, 0.97, 1.00);
 
     gl_FragColor = vec4(col, 1.0);
   }
@@ -72,8 +71,12 @@ function RippleCanvas() {
     const mesh = new THREE.Mesh(geometry, material)
     scene.add(mesh)
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    // Lower DPR than usual — splash doesn't need sharp pixels, just smooth motion
+    const renderer = new THREE.WebGLRenderer({
+      antialias: false,           // off — smoother on weak GPUs
+      powerPreference: 'high-performance',
+    })
+    renderer.setPixelRatio(0.65)  // ~65% native resolution
     container.appendChild(renderer.domElement)
 
     const onResize = () => {
@@ -86,13 +89,18 @@ function RippleCanvas() {
     onResize()
     window.addEventListener('resize', onResize)
 
+    // Throttle to ~30fps (instead of 60) — half the GPU work, still looks smooth
     let raf
-    const animate = () => {
+    let last = 0
+    const FRAME_MS = 1000 / 30
+    const animate = (now) => {
       raf = requestAnimationFrame(animate)
-      uniforms.time.value += 0.05
+      if (now - last < FRAME_MS) return
+      last = now
+      uniforms.time.value += 0.1     // bigger step since fewer frames
       renderer.render(scene, camera)
     }
-    animate()
+    raf = requestAnimationFrame(animate)
 
     return () => {
       cancelAnimationFrame(raf)
@@ -110,7 +118,7 @@ function RippleCanvas() {
     <div
       ref={containerRef}
       className="absolute inset-0 w-full h-full"
-      style={{ background: '#000' }}
+      style={{ background: '#02020a' }}
     />
   )
 }
@@ -137,7 +145,12 @@ export default function SplashScreen() {
 
   useEffect(() => {
     document.body.style.overflow = show ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    // Tell CloudsBackdrop to pause while splash is on screen
+    window.__webvenSplashActive = show
+    return () => {
+      document.body.style.overflow = ''
+      window.__webvenSplashActive = false
+    }
   }, [show])
 
   const status = statusMessages.reduce(

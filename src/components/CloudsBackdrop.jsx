@@ -155,9 +155,15 @@ export default function CloudsBackdrop() {
     resize()
     window.addEventListener('resize', resize)
 
+    // Throttle to ~40fps + pause while splash is up (saves GPU)
+    let last = 0
+    const FRAME_MS = 1000 / 40
     const loop = (now) => {
-      renderer.render(now)
       rafRef.current = requestAnimationFrame(loop)
+      if (window.__webvenSplashActive) return       // pause while splash
+      if (now - last < FRAME_MS) return
+      last = now
+      renderer.render(now)
     }
     rafRef.current = requestAnimationFrame(loop)
 
