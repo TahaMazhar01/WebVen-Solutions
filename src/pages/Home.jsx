@@ -21,6 +21,7 @@ import IconBubble from '../components/IconBubble'
 import BentoSection from '../components/BentoSection'
 import Testimonials from '../components/Testimonials'
 import ShaderBackground from '../components/ShaderBackground'
+import BubbleText from '../components/BubbleText'
 
 const services = [
   {
@@ -116,8 +117,10 @@ export default function Home() {
                 transition={{ duration: 0.7, delay: 0.1 }}
                 className="heading-xl mb-4 sm:mb-5 text-white"
               >
-                We build modern websites and{' '}
-                <span className="bg-gradient-to-r from-white via-accent to-violet-300 bg-clip-text text-transparent">AI solutions.</span>
+                <BubbleText>
+                  We build modern websites and{' '}
+                  <span className="bg-gradient-to-r from-white via-accent to-violet-300 bg-clip-text text-transparent">AI solutions.</span>
+                </BubbleText>
               </motion.h1>
 
               <motion.p

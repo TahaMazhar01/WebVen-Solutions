@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
 import IconBubble from '../components/IconBubble'
+import BubbleText from '../components/BubbleText'
 
 const Spline = lazy(() => import('@splinetool/react-spline'))
 const STUDIO_SCENE = 'https://prod.spline.design/f185J3lWKa17nAfO/scene.splinecode'
@@ -64,8 +65,10 @@ export default function About() {
               <Sparkles size={12} /> About Webven
             </span>
             <h1 className="heading-xl mb-6 text-white">
-              Crafting the modern{' '}
-              <span className="gradient-text">web.</span>
+              <BubbleText>
+                Crafting the modern{' '}
+                <span className="gradient-text">web.</span>
+              </BubbleText>
             </h1>
             <p className="text-base sm:text-xl text-white/65 leading-relaxed max-w-3xl">
               Webven is a remote-first design and engineering studio. We partner with

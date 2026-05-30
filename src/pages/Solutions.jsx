@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
 import IconBubble from '../components/IconBubble'
+import BubbleText from '../components/BubbleText'
 
 const solutions = [
   {
@@ -103,7 +104,9 @@ export default function Solutions() {
         <div className="max-w-4xl">
           <span className="eyebrow mb-5">Solutions</span>
           <h1 className="heading-xl mb-6 text-white">
-            Every kind of <span className="gradient-text">web solution.</span>
+            <BubbleText>
+              Every kind of <span className="gradient-text">web solution.</span>
+            </BubbleText>
           </h1>
           <p className="text-base sm:text-xl text-white/65 leading-relaxed max-w-3xl">
             From simple landing pages to AI-powered platforms — here are the

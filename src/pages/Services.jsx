@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
 import IconBubble from '../components/IconBubble'
+import BubbleText from '../components/BubbleText'
 
 const services = [
   {
@@ -78,7 +79,9 @@ export default function Services() {
         <div className="max-w-4xl">
           <span className="eyebrow mb-5">Services</span>
           <h1 className="heading-xl mb-6 text-white">
-            Everything you need to <span className="gradient-text">grow online.</span>
+            <BubbleText>
+              Everything you need to <span className="gradient-text">grow online.</span>
+            </BubbleText>
           </h1>
           <p className="text-base sm:text-xl text-white/65 leading-relaxed max-w-3xl">
             From a landing page to a full product launch, we cover the entire digital

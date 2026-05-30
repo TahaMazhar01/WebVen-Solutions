@@ -70,6 +70,12 @@
     -webkit-text-fill-color: transparent;
     animation: shimmer 4s linear infinite;
   }
+
+  /* The hovered character glows blue */
+  .bubble-char-strong {
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(0, 102, 255, 0.6);
+  }
   @keyframes shimmer {
     0% { background-position: 200% center; }
     100% { background-position: 0% center; }

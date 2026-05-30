@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, BadgeCheck } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
+import BubbleText from '../components/BubbleText'
 
 const filters = ['All', 'Web', 'Mobile', 'Branding', 'SEO']
 
@@ -76,7 +77,9 @@ export default function Portfolio() {
         <div className="max-w-4xl">
           <span className="eyebrow mb-5">Selected work</span>
           <h1 className="heading-xl mb-6 text-white">
-            Projects we're <span className="gradient-text">proud of.</span>
+            <BubbleText>
+              Projects we're <span className="gradient-text">proud of.</span>
+            </BubbleText>
           </h1>
           <p className="text-base sm:text-xl text-white/65 leading-relaxed max-w-3xl">
             A curated selection of recent work — from venture-backed startups

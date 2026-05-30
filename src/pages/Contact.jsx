@@ -6,6 +6,7 @@ import {
   Wallet, BadgeDollarSign, CreditCard, Banknote,
 } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
+import BubbleText from '../components/BubbleText'
 
 const budgets = [
   { value: '< $5k',     label: 'Under $5k',     hint: 'Landing page',     icon: Wallet },
@@ -106,7 +107,9 @@ export default function Contact() {
               <Sparkles size={12} /> Get in touch
             </span>
             <h1 className="heading-lg mb-6 text-white">
-              Let's build something <span className="gradient-text">great.</span>
+              <BubbleText>
+                Let's build something <span className="gradient-text">great.</span>
+              </BubbleText>
             </h1>
             <p className="text-base sm:text-lg text-white/65 leading-relaxed mb-10">
               Tell us about your project. We typically reply within one business day
