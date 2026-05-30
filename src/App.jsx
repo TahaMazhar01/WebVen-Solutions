@@ -16,12 +16,14 @@ import BackToTop from './components/BackToTop'
 import SmoothScroll from './components/SmoothScroll'
 import CustomCursor from './components/CustomCursor'
 import WhatsAppButton from './components/WhatsAppButton'
+import CloudsBackdrop from './components/CloudsBackdrop'
 
 export default function App() {
   const location = useLocation()
 
   return (
     <div className="min-h-screen flex flex-col">
+      <CloudsBackdrop />
       <SmoothScroll />
       <CustomCursor />
       <SplashScreen />

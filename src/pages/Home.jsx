@@ -92,14 +92,10 @@ const projects = [
 export default function Home() {
   return (
     <PageWrapper>
-      {/* ===== HERO ===== with animated shader background */}
-      <section className="relative bg-ink-950 -mt-24 sm:-mt-28 pt-24 sm:pt-28">
-        {/* Animated WebGL nebula */}
-        <ShaderBackground />
-
+      {/* ===== HERO ===== uses the global CloudsBackdrop */}
+      <section className="relative -mt-24 sm:-mt-28 pt-24 sm:pt-28">
         {/* Soft vignette to keep text crisp */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-950/30 via-transparent to-ink-950/40" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink-950/60 via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-950/20 via-transparent to-ink-950/30" />
 
         <div className="container-x relative z-10">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center pt-2 lg:pt-8 pb-12 lg:pb-16">
@@ -303,11 +299,11 @@ export default function Home() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mb-10 sm:mb-14"
         >
-          <span className="eyebrow mb-5">What we do</span>
-          <h2 className="heading-lg mb-4">
-            Web development meets <span className="gradient-text">AI.</span>
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium uppercase tracking-[0.18em] bg-white/10 backdrop-blur-md border border-white/20 text-white/80 mb-5">What we do</span>
+          <h2 className="heading-lg mb-4 text-white">
+            Web development meets <span className="bg-gradient-to-r from-white via-accent to-violet-300 bg-clip-text text-transparent">AI.</span>
           </h2>
-          <p className="text-base sm:text-lg text-ink-500 leading-relaxed">
+          <p className="text-base sm:text-lg text-white/65 leading-relaxed">
             We build modern websites, mobile apps, and AI-powered features —
             everything you need to launch and grow online.
           </p>
@@ -413,11 +409,11 @@ export default function Home() {
       <section className="container-x py-16 sm:py-24">
         <div className="flex items-end justify-between mb-10 sm:mb-12 flex-wrap gap-4">
           <div className="max-w-2xl">
-            <span className="eyebrow mb-4">Selected work</span>
-            <h2 className="heading-lg mb-3">Recent projects.</h2>
-            <p className="text-base sm:text-lg text-ink-500">A glimpse of what we've shipped lately.</p>
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium uppercase tracking-[0.18em] bg-white/10 backdrop-blur-md border border-white/20 text-white/80 mb-4">Selected work</span>
+            <h2 className="heading-lg mb-3 text-white">Recent projects.</h2>
+            <p className="text-base sm:text-lg text-white/65">A glimpse of what we've shipped lately.</p>
           </div>
-          <Link to="/portfolio" className="btn-secondary mb-1">
+          <Link to="/portfolio" className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 backdrop-blur px-6 py-3 text-sm font-semibold text-white hover:bg-white/15 hover:-translate-y-0.5 transition-all duration-300 mb-1">
             All projects <ArrowUpRight size={14} />
           </Link>
         </div>
@@ -450,8 +446,8 @@ export default function Home() {
                 </div>
               </div>
               <div className="px-1">
-                <p className="text-xs uppercase tracking-[0.18em] text-ink-400 mb-1.5">{p.tag}</p>
-                <h3 className="font-display text-xl sm:text-2xl font-semibold">{p.title}</h3>
+                <p className="text-xs uppercase tracking-[0.18em] text-white/50 mb-1.5">{p.tag}</p>
+                <h3 className="font-display text-xl sm:text-2xl font-semibold text-white">{p.title}</h3>
               </div>
             </motion.div>
           ))}

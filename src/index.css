@@ -12,9 +12,11 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: #03030a;
   }
   body {
-    @apply bg-white text-ink-900 font-sans;
+    @apply text-ink-900 font-sans;
+    background: transparent;
     position: relative;
   }
   #root {
