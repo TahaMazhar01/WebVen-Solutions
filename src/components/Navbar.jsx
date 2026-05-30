@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Menu, X, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import Logo from './Logo'
+import FluidMenu from './FluidMenu'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -15,7 +16,6 @@ const links = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
-  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
@@ -86,45 +86,8 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <button
-            onClick={() => setOpen(!open)}
-            className="lg:hidden p-2 -mr-1 rounded-lg hover:bg-ink-50 transition-colors"
-            aria-label="Toggle menu"
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <FluidMenu />
         </div>
-
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="lg:hidden mt-2 bg-white/95 backdrop-blur-xl border border-ink-200 rounded-2xl p-4 flex flex-col gap-1 shadow-xl shadow-ink-900/5"
-          >
-            {links.map((l) => (
-              <NavLink
-                key={l.to}
-                to={l.to}
-                end={l.to === '/'}
-                onClick={() => setOpen(false)}
-                className={({ isActive }) =>
-                  `px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                    isActive ? 'bg-ink-900 text-white' : 'text-ink-700 hover:bg-ink-50'
-                  }`
-                }
-              >
-                {l.label}
-              </NavLink>
-            ))}
-            <Link
-              to="/contact"
-              onClick={() => setOpen(false)}
-              className="btn-primary justify-center mt-3"
-            >
-              Hire us <ArrowUpRight size={14} />
-            </Link>
-          </motion.div>
-        )}
       </div>
     </motion.header>
   )
