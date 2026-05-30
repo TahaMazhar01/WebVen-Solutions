@@ -15,7 +15,7 @@ const statusMessages = [
   { at: 100, text: 'WELCOME' },
 ]
 
-/* ===== Ripple shader (adapted from @aliimam · Webven palette · OPTIMIZED) ===== */
+/* ===== Ripple shader (simplified for smoothness · Webven palette) ===== */
 const VERTEX_SRC = `void main() { gl_Position = vec4(position, 1.0); }`
 const FRAGMENT_SRC = `
   precision mediump float;
@@ -25,20 +25,22 @@ const FRAGMENT_SRC = `
   void main(void) {
     vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
     float t = time * 0.05;
-    float lineWidth = 0.0025;
-    vec3 color = vec3(0.0);
     float L = length(uv);
     float M = mod(uv.x + uv.y, 0.2);
+    vec3 color = vec3(0.0);
 
-    // 3 channels × 3 iterations = 9 ops (was 15) — much lighter
-    for (int j = 0; j < 3; j++) {
-      for (int i = 0; i < 3; i++) {
-        color[j] += lineWidth * float(i*i)
-          / abs(fract(t - 0.01 * float(j) + float(i) * 0.015) * 5.0 - L + M);
-      }
-    }
+    // 3 channels × 2 iterations = 6 ops total (was 9) — much lighter
+    // Channel 0 — blue ripples
+    color[0] += 0.004 / abs(fract(t) * 5.0 - L + M);
+    color[0] += 0.016 / abs(fract(t + 0.015) * 5.0 - L + M);
+    // Channel 1 — violet
+    color[1] += 0.004 / abs(fract(t - 0.01) * 5.0 - L + M);
+    color[1] += 0.016 / abs(fract(t + 0.005) * 5.0 - L + M);
+    // Channel 2 — white
+    color[2] += 0.004 / abs(fract(t - 0.02) * 5.0 - L + M);
+    color[2] += 0.016 / abs(fract(t - 0.005) * 5.0 - L + M);
 
-    // Webven palette tint
+    // Webven palette
     vec3 col =
         color[0] * vec3(0.30, 0.45, 1.00)
       + color[1] * vec3(0.65, 0.55, 1.00)
@@ -73,11 +75,16 @@ function RippleCanvas() {
 
     // Lower DPR than usual — splash doesn't need sharp pixels, just smooth motion
     const renderer = new THREE.WebGLRenderer({
-      antialias: false,           // off — smoother on weak GPUs
+      antialias: false,
       powerPreference: 'high-performance',
+      stencil: false,
+      depth: false,
     })
-    renderer.setPixelRatio(0.65)  // ~65% native resolution
+    renderer.setPixelRatio(0.5)   // 50% native — much smoother on every device
     container.appendChild(renderer.domElement)
+    // HW accel hints
+    renderer.domElement.style.willChange = 'transform'
+    renderer.domElement.style.transform = 'translateZ(0)'
 
     const onResize = () => {
       const w = container.clientWidth
@@ -89,15 +96,15 @@ function RippleCanvas() {
     onResize()
     window.addEventListener('resize', onResize)
 
-    // Throttle to ~30fps (instead of 60) — half the GPU work, still looks smooth
+    // 24fps cap (cinema standard) — silky smooth perception
     let raf
     let last = 0
-    const FRAME_MS = 1000 / 30
+    const FRAME_MS = 1000 / 24
     const animate = (now) => {
       raf = requestAnimationFrame(animate)
       if (now - last < FRAME_MS) return
       last = now
-      uniforms.time.value += 0.1     // bigger step since fewer frames
+      uniforms.time.value += 0.125
       renderer.render(scene, camera)
     }
     raf = requestAnimationFrame(animate)
