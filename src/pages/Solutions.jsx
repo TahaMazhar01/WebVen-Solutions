@@ -204,25 +204,16 @@ export default function Solutions() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-ink-950 text-white p-8 sm:p-12 lg:p-16 text-center"
+          className="rounded-3xl border border-ink-200 bg-gradient-to-br from-white via-blue-50/40 to-violet-50/30 p-8 sm:p-12 lg:p-16 text-center shadow-2xl shadow-ink-900/10"
         >
-          <div className="absolute inset-0 opacity-40">
-            <div className="absolute top-0 left-1/4 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-accent/40 blur-3xl" />
-            <div className="absolute bottom-0 right-1/4 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-violet-500/30 blur-3xl" />
-          </div>
-          <div className="relative">
-            <h2 className="heading-lg mb-4 text-white">Not sure which fits?</h2>
-            <p className="text-base sm:text-lg text-ink-300 mb-7 sm:mb-8 max-w-xl mx-auto">
-              Book a free 30-minute consultation. We'll help you pick the right
-              architecture for your product — no pressure.
-            </p>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-white text-ink-900 px-7 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold hover:bg-accent hover:text-white transition-all duration-300 hover:scale-105"
-            >
-              Book a call <ArrowUpRight size={16} />
-            </Link>
-          </div>
+          <h2 className="heading-lg mb-4 !text-ink-900">Not sure which fits?</h2>
+          <p className="text-base sm:text-lg text-ink-500 mb-7 sm:mb-8 max-w-xl mx-auto">
+            Book a free 30-minute consultation. We'll help you pick the right
+            architecture for your product — no pressure.
+          </p>
+          <Link to="/contact" className="btn-primary">
+            Book a call <ArrowUpRight size={16} />
+          </Link>
         </motion.div>
       </section>
     </PageWrapper>

@@ -461,27 +461,18 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-ink-950 text-white p-8 sm:p-12 lg:p-20 text-center"
+          className="rounded-3xl border border-ink-200 bg-gradient-to-br from-white via-blue-50/40 to-violet-50/30 p-8 sm:p-12 lg:p-16 text-center shadow-2xl shadow-ink-900/10"
         >
-          <div className="absolute inset-0 opacity-40">
-            <div className="absolute top-0 left-1/4 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-accent/40 blur-3xl" />
-            <div className="absolute bottom-0 right-1/4 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-violet-500/30 blur-3xl" />
-          </div>
-          <div className="relative">
-            <h2 className="heading-lg mb-5">Need a website or AI feature?</h2>
-            <p className="text-base sm:text-lg text-ink-300 max-w-2xl mx-auto mb-8 sm:mb-10">
-              We're booking new web development and AI projects.
-              Tell us what you're building — we'll send back a plan.
-            </p>
-            <MagneticButton>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-white text-ink-900 px-7 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold hover:bg-accent hover:text-white transition-all duration-300"
-              >
-                Start a conversation <ArrowUpRight size={16} />
-              </Link>
-            </MagneticButton>
-          </div>
+          <h2 className="heading-lg mb-4 !text-ink-900">Need a website or AI feature?</h2>
+          <p className="text-base sm:text-lg text-ink-500 mb-7 sm:mb-8 max-w-2xl mx-auto">
+            We're booking new web development and AI projects.
+            Tell us what you're building — we'll send back a plan.
+          </p>
+          <MagneticButton>
+            <Link to="/contact" className="btn-primary">
+              Start a conversation <ArrowUpRight size={16} />
+            </Link>
+          </MagneticButton>
         </motion.div>
       </section>
     </PageWrapper>
