@@ -146,15 +146,21 @@ export default function Portfolio() {
       </section>
 
       <section className="container-x pb-20 sm:pb-28">
-        <div className="rounded-3xl bg-gradient-to-br from-ink-950 via-ink-900 to-indigo-950 text-white p-8 sm:p-12 lg:p-16 text-center">
-          <h2 className="heading-lg mb-4">Your project, next on this list?</h2>
-          <p className="text-ink-300 mb-7 sm:mb-8 max-w-xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="rounded-3xl border border-ink-200 bg-gradient-to-br from-white via-blue-50/40 to-violet-50/30 p-8 sm:p-12 lg:p-16 text-center shadow-2xl shadow-ink-900/10"
+        >
+          <h2 className="heading-lg mb-4 !text-ink-900">Your project, next on this list?</h2>
+          <p className="text-base sm:text-lg text-ink-500 mb-7 sm:mb-8 max-w-xl mx-auto">
             We're booking new work for next quarter. Let's talk about your idea.
           </p>
-          <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-white text-ink-900 px-7 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold hover:bg-indigo-500 hover:text-white transition-all">
+          <Link to="/contact" className="btn-primary">
             Start a project <ArrowUpRight size={16} />
           </Link>
-        </div>
+        </motion.div>
       </section>
     </PageWrapper>
   )
