@@ -332,7 +332,7 @@ export default function Home() {
                   {s.tags.map((t) => (
                     <span
                       key={t}
-                      className="text-xs font-medium text-ink-600 px-2.5 py-1 rounded-md bg-ink-50"
+                      className="text-xs font-medium text-white/80 px-2.5 py-1 rounded-md bg-white/10 backdrop-blur border border-white/15"
                     >
                       {t}
                     </span>

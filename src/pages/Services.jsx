@@ -161,15 +161,30 @@ export default function Services() {
       </section>
 
       <section className="container-x py-16 sm:py-24">
-        <div className="rounded-3xl bg-gradient-to-br from-ink-50 to-indigo-50/50 border border-ink-100 p-8 sm:p-12 lg:p-16 text-center">
-          <h2 className="heading-lg mb-4">Not sure which service fits?</h2>
-          <p className="text-ink-500 mb-7 sm:mb-8 max-w-xl mx-auto">
-            Book a free 30-minute call. We'll help you scope your project — no pressure.
-          </p>
-          <Link to="/contact" className="btn-primary">
-            Book a call <ArrowUpRight size={16} />
-          </Link>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-ink-950 text-white p-8 sm:p-12 lg:p-16 text-center"
+        >
+          <div className="absolute inset-0 opacity-40">
+            <div className="absolute top-0 left-1/4 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-accent/40 blur-3xl" />
+            <div className="absolute bottom-0 right-1/4 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-violet-500/30 blur-3xl" />
+          </div>
+          <div className="relative">
+            <h2 className="heading-lg mb-4 text-white">Not sure which service fits?</h2>
+            <p className="text-base sm:text-lg text-ink-300 mb-7 sm:mb-8 max-w-xl mx-auto">
+              Book a free 30-minute call. We'll help you scope your project — no pressure.
+            </p>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-full bg-white text-ink-900 px-7 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold hover:bg-accent hover:text-white transition-all duration-300 hover:scale-105"
+            >
+              Book a call <ArrowUpRight size={16} />
+            </Link>
+          </div>
+        </motion.div>
       </section>
     </PageWrapper>
   )
