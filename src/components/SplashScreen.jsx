@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import * as THREE from 'three'
 
-const PROGRESS_DURATION = 2700
-const HOLD_AT_100 = 700
-const FADE_DURATION = 800
+const PROGRESS_DURATION = 2500
+const HOLD_AT_100 = 500
+const FADE_DURATION = 450        // shorter, snappier exit
 const TOTAL = PROGRESS_DURATION + HOLD_AT_100
 
 const statusMessages = [
@@ -50,8 +50,10 @@ const FRAGMENT_SRC = `
   }
 `
 
-function RippleCanvas() {
+function RippleCanvas({ paused }) {
   const containerRef = useRef(null)
+  const pausedRef = useRef(paused)
+  useEffect(() => { pausedRef.current = paused }, [paused])
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -96,12 +98,13 @@ function RippleCanvas() {
     onResize()
     window.addEventListener('resize', onResize)
 
-    // 24fps cap (cinema standard) — silky smooth perception
+    // 24fps cap + stop completely when paused (exit)
     let raf
     let last = 0
     const FRAME_MS = 1000 / 24
     const animate = (now) => {
       raf = requestAnimationFrame(animate)
+      if (pausedRef.current) return        // stop rendering during exit
       if (now - last < FRAME_MS) return
       last = now
       uniforms.time.value += 0.125
@@ -133,6 +136,7 @@ function RippleCanvas() {
 /* ===== Splash Screen ===== */
 export default function SplashScreen() {
   const [show, setShow] = useState(true)
+  const [exiting, setExiting] = useState(false)
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
@@ -143,10 +147,13 @@ export default function SplashScreen() {
       setProgress(pct)
       if (pct >= 100) clearInterval(tick)
     }, 16)
-    const timer = setTimeout(() => setShow(false), TOTAL)
+    // Stop shader BEFORE exit animation starts → no lag
+    const exitTimer = setTimeout(() => setExiting(true), TOTAL - 100)
+    const hideTimer = setTimeout(() => setShow(false), TOTAL)
     return () => {
       clearInterval(tick)
-      clearTimeout(timer)
+      clearTimeout(exitTimer)
+      clearTimeout(hideTimer)
     }
   }, [])
 
@@ -171,12 +178,12 @@ export default function SplashScreen() {
       {show && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: FADE_DURATION / 1000, ease: [0.65, 0, 0.35, 1] }}
+          exit={{ opacity: 0 }}                                  /* just fade — no scale (no jank) */
+          transition={{ duration: FADE_DURATION / 1000, ease: 'easeInOut' }}
           className="fixed inset-0 z-[200] overflow-hidden"
         >
-          {/* Background shader */}
-          <RippleCanvas />
+          {/* Background shader (pauses before exit so no lag) */}
+          <RippleCanvas paused={exiting} />
 
           {/* Soft vignette to focus the center */}
           <div className="pointer-events-none absolute inset-0 bg-radial-vignette"
