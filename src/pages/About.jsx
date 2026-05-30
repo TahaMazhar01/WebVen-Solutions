@@ -15,7 +15,6 @@ import {
 } from 'lucide-react'
 import PageWrapper from '../components/PageWrapper'
 import IconBubble from '../components/IconBubble'
-import Globe from '../components/Globe'
 
 const Spline = lazy(() => import('@splinetool/react-spline'))
 const STUDIO_SCENE = 'https://prod.spline.design/f185J3lWKa17nAfO/scene.splinecode'
@@ -134,56 +133,6 @@ export default function About() {
               <p className="relative pl-10 mt-3 text-xs uppercase tracking-[0.18em] text-white/60 font-semibold">
                 Taha Mazhar · Founder
               </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== GLOBAL REACH ===== */}
-      <section className="relative overflow-hidden py-20 sm:py-28">
-        {/* Soft radial glow behind globe */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-accent/10 blur-3xl" />
-
-        <div className="container-x relative">
-          <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Left content */}
-            <div className="lg:col-span-5">
-              <span className="eyebrow mb-5">
-                <Sparkles size={12} /> Worldwide
-              </span>
-              <h2 className="heading-lg text-white mb-5">
-                Global by{' '}
-                <span className="gradient-text">design.</span>
-              </h2>
-              <p className="text-base sm:text-lg text-white/65 leading-relaxed mb-8">
-                We're a remote-first studio with team members and clients across continents.
-                From Dubai to New York, London to Tokyo — we build for the world.
-              </p>
-
-              {/* Stat blocks */}
-              <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-md">
-                <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md p-4">
-                  <div className="font-display text-2xl sm:text-3xl font-bold text-white">12+</div>
-                  <div className="text-[9px] text-white/60 uppercase tracking-[0.18em] mt-1 font-semibold">Countries</div>
-                </div>
-                <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md p-4">
-                  <div className="font-display text-2xl sm:text-3xl font-bold text-white">4</div>
-                  <div className="text-[9px] text-white/60 uppercase tracking-[0.18em] mt-1 font-semibold">Continents</div>
-                </div>
-                <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md p-4">
-                  <div className="font-display text-2xl sm:text-3xl font-bold text-white">24/7</div>
-                  <div className="text-[9px] text-white/60 uppercase tracking-[0.18em] mt-1 font-semibold">Coverage</div>
-                </div>
-              </div>
-
-              <p className="text-xs text-white/40 mt-6 italic">
-                Drag the globe to spin it — markers show where we've shipped projects.
-              </p>
-            </div>
-
-            {/* Right — globe */}
-            <div className="lg:col-span-7 flex items-center justify-center">
-              <Globe size={620} />
             </div>
           </div>
         </div>
