@@ -69,13 +69,13 @@ const STYLES = `
 }
 
 .webven-footer-giant {
-  font-size: clamp(8rem, 22vw, 22rem);
+  font-size: clamp(4rem, 15vw, 15rem);   /* smaller so full word is visible */
   line-height: 0.85;
   font-weight: 900;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.06);
-  background: linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 70%);
+  -webkit-text-stroke: 1px rgba(255,255,255,0.10);
+  background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 80%);
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -170,8 +170,7 @@ export default function CinematicFooter() {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="webven-footer-giant absolute left-1/2 -translate-x-1/2 whitespace-nowrap z-0 pointer-events-none select-none font-display"
-          style={{ bottom: '-3vh' }}
+          className="webven-footer-giant absolute left-1/2 -translate-x-1/2 bottom-0 whitespace-nowrap z-0 pointer-events-none select-none font-display"
         >
           WEBVEN
         </motion.div>
