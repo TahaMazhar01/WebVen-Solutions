@@ -75,10 +75,10 @@ export default function Portfolio() {
       <section className="container-x py-16 sm:py-20">
         <div className="max-w-4xl">
           <span className="eyebrow mb-5">Selected work</span>
-          <h1 className="heading-xl mb-6">
+          <h1 className="heading-xl mb-6 text-white">
             Projects we're <span className="gradient-text">proud of.</span>
           </h1>
-          <p className="text-base sm:text-xl text-ink-500 leading-relaxed max-w-3xl">
+          <p className="text-base sm:text-xl text-white/65 leading-relaxed max-w-3xl">
             A curated selection of recent work — from venture-backed startups
             to established brands like ASHGroup Dubai.
           </p>
@@ -93,8 +93,8 @@ export default function Portfolio() {
               onClick={() => setActive(f)}
               className={`px-4 sm:px-5 py-2 rounded-full text-sm font-semibold transition-all ${
                 active === f
-                  ? 'bg-ink-900 text-white shadow-lg shadow-ink-900/20'
-                  : 'bg-ink-50 text-ink-700 hover:bg-ink-100'
+                  ? 'bg-white text-ink-900 shadow-lg shadow-white/20'
+                  : 'bg-white/8 backdrop-blur text-white/80 hover:bg-white/15 border border-white/15'
               }`}
             >
               {f}
@@ -135,9 +135,9 @@ export default function Portfolio() {
                   </div>
                 </div>
                 <div className="px-1">
-                  <p className="text-xs uppercase tracking-[0.18em] text-ink-400 mb-1.5">{p.tag}</p>
-                  <h3 className="font-display text-xl sm:text-2xl font-semibold mb-1 group-hover:text-accent transition-colors">{p.title}</h3>
-                  <p className="text-sm sm:text-base text-ink-500">{p.desc}</p>
+                  <p className="text-xs uppercase tracking-[0.18em] text-white/50 mb-1.5">{p.tag}</p>
+                  <h3 className="font-display text-xl sm:text-2xl font-semibold mb-1 text-white group-hover:text-accent transition-colors">{p.title}</h3>
+                  <p className="text-sm sm:text-base text-white/65">{p.desc}</p>
                 </div>
               </motion.div>
             ))}

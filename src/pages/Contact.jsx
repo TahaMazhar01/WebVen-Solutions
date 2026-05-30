@@ -105,10 +105,10 @@ export default function Contact() {
             <span className="eyebrow mb-5">
               <Sparkles size={12} /> Get in touch
             </span>
-            <h1 className="heading-lg mb-6">
+            <h1 className="heading-lg mb-6 text-white">
               Let's build something <span className="gradient-text">great.</span>
             </h1>
-            <p className="text-base sm:text-lg text-ink-500 leading-relaxed mb-10">
+            <p className="text-base sm:text-lg text-white/65 leading-relaxed mb-10">
               Tell us about your project. We typically reply within one business day
               with next steps or a friendly heads-up.
             </p>

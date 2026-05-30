@@ -19,10 +19,10 @@ export default function BentoSection() {
         className="max-w-3xl mb-10 sm:mb-12"
       >
         <span className="eyebrow mb-5">Capabilities</span>
-        <h2 className="heading-lg mb-4">
+        <h2 className="heading-lg mb-4 text-white">
           Everything you need to <span className="gradient-text">launch and scale.</span>
         </h2>
-        <p className="text-base sm:text-lg text-ink-500 leading-relaxed">
+        <p className="text-base sm:text-lg text-white/65 leading-relaxed">
           A complete digital toolkit — from beautiful interfaces to AI features,
           all built in-house and shipped fast.
         </p>

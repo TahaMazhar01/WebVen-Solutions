@@ -7,7 +7,7 @@ export default function PageWrapper({ children, className = '' }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`pt-24 sm:pt-28 ${className}`}
+      className={`pt-24 sm:pt-28 text-white ${className}`}
     >
       {children}
     </motion.div>

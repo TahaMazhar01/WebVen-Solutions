@@ -102,10 +102,10 @@ export default function Solutions() {
       <section className="container-x py-16 sm:py-20">
         <div className="max-w-4xl">
           <span className="eyebrow mb-5">Solutions</span>
-          <h1 className="heading-xl mb-6">
+          <h1 className="heading-xl mb-6 text-white">
             Every kind of <span className="gradient-text">web solution.</span>
           </h1>
-          <p className="text-base sm:text-xl text-ink-500 leading-relaxed max-w-3xl">
+          <p className="text-base sm:text-xl text-white/65 leading-relaxed max-w-3xl">
             From simple landing pages to AI-powered platforms — here are the
             technologies and architectures we build with, and when each one fits.
           </p>
@@ -138,17 +138,17 @@ export default function Solutions() {
                 <p className="text-xs uppercase tracking-[0.22em] font-semibold text-accent mb-3">
                   {s.eyebrow}
                 </p>
-                <h2 className="heading-lg mb-5">{s.title}</h2>
-                <p className="text-base sm:text-lg text-ink-500 leading-relaxed mb-6">
+                <h2 className="heading-lg mb-5 text-white">{s.title}</h2>
+                <p className="text-base sm:text-lg text-white/65 leading-relaxed mb-6">
                   {s.desc}
                 </p>
                 <ul className="space-y-3 mb-7">
                   {s.features.map((f) => (
                     <li
                       key={f}
-                      className="flex items-start gap-3 text-sm sm:text-base text-ink-700"
+                      className="flex items-start gap-3 text-sm sm:text-base text-white/80"
                     >
-                      <span className="w-5 h-5 rounded-full bg-accent/10 text-accent flex items-center justify-center shrink-0 mt-0.5">
+                      <span className="w-5 h-5 rounded-full bg-accent/20 text-accent flex items-center justify-center shrink-0 mt-0.5">
                         <Check size={12} strokeWidth={3} />
                       </span>
                       {f}
@@ -159,7 +159,7 @@ export default function Solutions() {
                   {s.tech.map((t) => (
                     <span
                       key={t}
-                      className="text-xs font-medium text-ink-700 px-3 py-1.5 rounded-full bg-ink-50 border border-ink-100"
+                      className="text-xs font-medium text-white/80 px-3 py-1.5 rounded-full bg-white/8 backdrop-blur border border-white/15"
                     >
                       {t}
                     </span>

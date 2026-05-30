@@ -77,10 +77,10 @@ export default function Services() {
       <section className="container-x py-16 sm:py-20">
         <div className="max-w-4xl">
           <span className="eyebrow mb-5">Services</span>
-          <h1 className="heading-xl mb-6">
+          <h1 className="heading-xl mb-6 text-white">
             Everything you need to <span className="gradient-text">grow online.</span>
           </h1>
-          <p className="text-base sm:text-xl text-ink-500 leading-relaxed max-w-3xl">
+          <p className="text-base sm:text-xl text-white/65 leading-relaxed max-w-3xl">
             From a landing page to a full product launch, we cover the entire digital
             stack — design, code, and growth.
           </p>

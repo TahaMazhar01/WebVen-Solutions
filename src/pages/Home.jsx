@@ -237,17 +237,17 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="relative overflow-hidden rounded-3xl border border-ink-100 bg-gradient-to-br from-ink-50 via-white to-blue-50/40 p-7 sm:p-10 lg:p-14"
+          className="relative overflow-hidden rounded-3xl border border-white/15 bg-white/5 backdrop-blur-xl p-7 sm:p-10 lg:p-14"
         >
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <span className="eyebrow mb-5">
                 <BadgeCheck size={12} /> Featured client
               </span>
-              <h2 className="heading-lg mb-4">
+              <h2 className="heading-lg mb-4 text-white">
                 We built <span className="gradient-text">ASHGroup Dubai</span>'s digital presence.
               </h2>
-              <p className="text-base sm:text-lg text-ink-500 leading-relaxed max-w-2xl mb-6">
+              <p className="text-base sm:text-lg text-white/65 leading-relaxed max-w-2xl mb-6">
                 A full website build for one of Dubai's leading real-estate groups —
                 a fast marketing site, lead-gen flows, and an AI chatbot for property inquiries.
               </p>
@@ -255,7 +255,7 @@ export default function Home() {
                 {['Web Development', 'AI Chatbot', 'SEO', 'Hosting'].map((t) => (
                   <span
                     key={t}
-                    className="text-xs font-medium text-ink-700 px-3 py-1.5 rounded-full bg-white border border-ink-200"
+                    className="text-xs font-medium text-white/80 px-3 py-1.5 rounded-full bg-white/8 backdrop-blur border border-white/20"
                   >
                     {t}
                   </span>
@@ -359,14 +359,14 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.07 }}
-                className="flex items-start gap-4 p-5 rounded-2xl border border-ink-100 hover:border-accent/30 hover:bg-blue-50/30 transition-colors"
+                className="flex items-start gap-4 p-5 rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md hover:border-accent/40 hover:bg-white/10 transition-colors"
               >
                 <IconBubble variant={['default', 'violet', 'amber', 'emerald'][i % 4]} size="sm" className="shrink-0">
                   <Icon size={18} />
                 </IconBubble>
                 <div>
-                  <h4 className="font-display font-semibold text-sm mb-0.5">{f.label}</h4>
-                  <p className="text-xs sm:text-sm text-ink-500 leading-relaxed">{f.desc}</p>
+                  <h4 className="font-display font-semibold text-sm mb-0.5 text-white">{f.label}</h4>
+                  <p className="text-xs sm:text-sm text-white/65 leading-relaxed">{f.desc}</p>
                 </div>
               </motion.div>
             )

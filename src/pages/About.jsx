@@ -63,11 +63,11 @@ export default function About() {
             <span className="eyebrow mb-5">
               <Sparkles size={12} /> About Webven
             </span>
-            <h1 className="heading-xl mb-6">
+            <h1 className="heading-xl mb-6 text-white">
               Crafting the modern{' '}
               <span className="gradient-text">web.</span>
             </h1>
-            <p className="text-base sm:text-xl text-ink-500 leading-relaxed max-w-3xl">
+            <p className="text-base sm:text-xl text-white/65 leading-relaxed max-w-3xl">
               Webven is a remote-first design and engineering studio. We partner with
               founders, marketers, and product teams to ship beautiful digital products
               that actually perform.
@@ -82,9 +82,9 @@ export default function About() {
               { v: '8+',   l: 'Years' },
               { v: '99%',  l: 'Retention' },
             ].map((s) => (
-              <div key={s.l} className="rounded-2xl border border-ink-100 bg-gradient-to-br from-white to-blue-50/30 p-4">
-                <div className="font-display text-3xl font-bold text-ink-900">{s.v}</div>
-                <div className="text-[10px] text-ink-500 uppercase tracking-[0.18em] mt-1 font-semibold">
+              <div key={s.l} className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md p-4">
+                <div className="font-display text-3xl font-bold text-white">{s.v}</div>
+                <div className="text-[10px] text-white/60 uppercase tracking-[0.18em] mt-1 font-semibold">
                   {s.l}
                 </div>
               </div>
@@ -101,19 +101,19 @@ export default function About() {
         <div className="grid md:grid-cols-12 gap-10 lg:gap-14">
           <div className="md:col-span-5">
             <span className="eyebrow mb-5">Our story</span>
-            <h2 className="heading-lg">
+            <h2 className="heading-lg text-white">
               Founded on the idea that the web should{' '}
               <span className="gradient-text">feel alive.</span>
             </h2>
           </div>
-          <div className="md:col-span-7 space-y-5 text-base sm:text-lg text-ink-600 leading-relaxed">
+          <div className="md:col-span-7 space-y-5 text-base sm:text-lg text-white/70 leading-relaxed">
             <p>
               We started Webven with a simple belief: most websites were boring, slow,
               and forgettable. We wanted to build a studio where craft mattered.
             </p>
             <p>
               We've shipped over 120 projects — including a full digital revamp for{' '}
-              <strong className="text-ink-900">ASHGroup Dubai</strong>. Our team brings
+              <strong className="text-white">ASHGroup Dubai</strong>. Our team brings
               together designers, engineers, and strategists who genuinely love
               what we do.
             </p>
@@ -124,13 +124,13 @@ export default function About() {
             </p>
 
             {/* Pull-quote */}
-            <div className="relative mt-8 p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-violet-50 border border-blue-100">
-              <Quote size={28} className="text-accent opacity-30 absolute top-4 left-4" />
-              <p className="relative pl-10 italic text-ink-700 font-medium">
+            <div className="relative mt-8 p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/15">
+              <Quote size={28} className="text-accent opacity-50 absolute top-4 left-4" />
+              <p className="relative pl-10 italic text-white/90 font-medium">
                 "Craft is the difference between something that works and something
                 that's worth using."
               </p>
-              <p className="relative pl-10 mt-3 text-xs uppercase tracking-[0.18em] text-ink-500 font-semibold">
+              <p className="relative pl-10 mt-3 text-xs uppercase tracking-[0.18em] text-white/60 font-semibold">
                 Taha Mazhar · Founder
               </p>
             </div>
@@ -142,7 +142,7 @@ export default function About() {
       <section className="container-x py-20 sm:py-28">
         <div className="text-center mx-auto max-w-2xl mb-12 sm:mb-14">
           <span className="eyebrow mb-5">What we believe</span>
-          <h2 className="heading-lg">The principles behind our work.</h2>
+          <h2 className="heading-lg text-white">The principles behind our work.</h2>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {values.map((v, i) => {
@@ -177,7 +177,7 @@ export default function About() {
       <section className="container-x py-20 sm:py-28">
         <div className="mb-10 sm:mb-14 max-w-3xl">
           <span className="eyebrow mb-5">The team</span>
-          <h2 className="heading-lg">People behind the pixels.</h2>
+          <h2 className="heading-lg text-white">People behind the pixels.</h2>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {team.map((p, i) => (
@@ -209,8 +209,8 @@ export default function About() {
                   ))}
                 </div>
               </div>
-              <h4 className="font-display font-semibold text-base sm:text-lg">{p.name}</h4>
-              <p className="text-xs sm:text-sm text-ink-500">{p.role}</p>
+              <h4 className="font-display font-semibold text-base sm:text-lg text-white">{p.name}</h4>
+              <p className="text-xs sm:text-sm text-white/65">{p.role}</p>
             </motion.div>
           ))}
         </div>

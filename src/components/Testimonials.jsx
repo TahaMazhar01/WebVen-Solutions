@@ -39,10 +39,10 @@ export default function Testimonials() {
         className="max-w-3xl mb-12 sm:mb-14"
       >
         <span className="eyebrow mb-5">What clients say</span>
-        <h2 className="heading-lg mb-4">
+        <h2 className="heading-lg mb-4 text-white">
           Trusted by founders <span className="gradient-text">worldwide.</span>
         </h2>
-        <p className="text-base sm:text-lg text-ink-500 leading-relaxed">
+        <p className="text-base sm:text-lg text-white/65 leading-relaxed">
           Don't just take our word for it. Here's what our clients have to say
           about working with us.
         </p>
@@ -56,7 +56,7 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: i * 0.1 }}
-            className="relative group rounded-3xl bg-gradient-to-br from-white to-blue-50/40 border border-ink-100 p-7 sm:p-8 hover:border-accent/30 hover:-translate-y-1 hover:shadow-2xl hover:shadow-accent/10 transition-all duration-500"
+            className="relative group rounded-3xl bg-white/5 backdrop-blur-xl border border-white/15 p-7 sm:p-8 hover:border-accent/40 hover:bg-white/8 hover:-translate-y-1 hover:shadow-2xl hover:shadow-accent/20 transition-all duration-500"
           >
             {/* Decorative quote mark */}
             <Quote
@@ -72,20 +72,20 @@ export default function Testimonials() {
             </div>
 
             {/* Quote */}
-            <p className="text-ink-700 leading-relaxed text-sm sm:text-base mb-7 relative z-10">
+            <p className="text-white/85 leading-relaxed text-sm sm:text-base mb-7 relative z-10">
               "{t.quote}"
             </p>
 
             {/* Author */}
-            <div className="flex items-center gap-3 pt-5 border-t border-ink-100">
+            <div className="flex items-center gap-3 pt-5 border-t border-white/10">
               <img
                 src={t.avatar}
                 alt={t.name}
-                className="w-11 h-11 rounded-full object-cover border-2 border-white shadow-md"
+                className="w-11 h-11 rounded-full object-cover border-2 border-white/20 shadow-md"
               />
               <div>
-                <p className="font-display font-semibold text-sm">{t.name}</p>
-                <p className="text-xs text-ink-500">{t.role}</p>
+                <p className="font-display font-semibold text-sm text-white">{t.name}</p>
+                <p className="text-xs text-white/60">{t.role}</p>
               </div>
             </div>
           </motion.div>
