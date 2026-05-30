@@ -20,6 +20,7 @@ import MagneticButton from '../components/MagneticButton'
 import IconBubble from '../components/IconBubble'
 import BentoSection from '../components/BentoSection'
 import Testimonials from '../components/Testimonials'
+import ShaderBackground from '../components/ShaderBackground'
 
 const services = [
   {
@@ -91,9 +92,16 @@ const projects = [
 export default function Home() {
   return (
     <PageWrapper>
-      {/* ===== HERO ===== */}
-      <section className="relative">
-        <div className="container-x">
+      {/* ===== HERO ===== with animated shader background */}
+      <section className="relative bg-ink-950 -mt-24 sm:-mt-28 pt-24 sm:pt-28">
+        {/* Animated WebGL nebula */}
+        <ShaderBackground />
+
+        {/* Soft vignette to keep text crisp */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink-950/30 via-transparent to-ink-950/40" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink-950/60 via-transparent to-transparent" />
+
+        <div className="container-x relative z-10">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center pt-2 lg:pt-8 pb-12 lg:pb-16">
             {/* Left content — 7 cols */}
             <div className="lg:col-span-7 relative z-10 order-2 lg:order-1">
@@ -101,26 +109,26 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="eyebrow mb-4 sm:mb-5"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium uppercase tracking-[0.18em] bg-white/10 backdrop-blur-md border border-white/20 text-white/90 mb-4 sm:mb-5"
               >
-                <Sparkles size={12} /> Web Dev · AI Solutions
+                <Sparkles size={12} className="text-accent" /> Web Dev · AI Solutions
               </motion.span>
 
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
-                className="heading-xl mb-4 sm:mb-5"
+                className="heading-xl mb-4 sm:mb-5 text-white"
               >
                 We build modern websites and{' '}
-                <span className="gradient-text">AI solutions.</span>
+                <span className="bg-gradient-to-r from-white via-accent to-violet-300 bg-clip-text text-transparent">AI solutions.</span>
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.25 }}
-                className="text-base sm:text-lg text-ink-500 max-w-xl leading-relaxed mb-7"
+                className="text-base sm:text-lg text-white/70 max-w-xl leading-relaxed mb-7"
               >
                 Webven is a digital studio crafting fast websites, mobile apps,
                 and AI-powered features for ambitious brands worldwide.
@@ -133,18 +141,24 @@ export default function Home() {
                 className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 mb-7 sm:mb-8"
               >
                 <MagneticButton className="w-full sm:w-auto">
-                  <Link to="/contact" className="btn-primary w-full sm:w-auto">
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-ink-900 px-6 py-3 text-sm font-semibold transition-all duration-300 hover:bg-accent hover:text-white hover:shadow-lg hover:shadow-accent/40 hover:-translate-y-0.5 min-h-[44px] w-full sm:w-auto"
+                  >
                     Start a project <ArrowUpRight size={16} />
                   </Link>
                 </MagneticButton>
                 <MagneticButton className="w-full sm:w-auto">
-                  <Link to="/portfolio" className="btn-secondary w-full sm:w-auto">
+                  <Link
+                    to="/portfolio"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 backdrop-blur-md px-6 py-3 text-sm font-semibold text-white hover:bg-white/15 hover:border-white/40 hover:-translate-y-0.5 transition-all duration-300 min-h-[44px] w-full sm:w-auto"
+                  >
                     View our work
                   </Link>
                 </MagneticButton>
               </motion.div>
 
-              {/* Inline stats bar */}
+              {/* Inline stats bar — glass cards for dark hero */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -154,12 +168,12 @@ export default function Home() {
                 {stats.map((s) => (
                   <div
                     key={s.label}
-                    className="rounded-2xl border border-ink-100 bg-white/60 backdrop-blur px-3 sm:px-4 py-3"
+                    className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md px-3 sm:px-4 py-3"
                   >
-                    <div className="font-display text-xl sm:text-3xl font-bold text-ink-900">
+                    <div className="font-display text-xl sm:text-3xl font-bold text-white">
                       <CountUp to={s.value} suffix={s.suffix} />
                     </div>
-                    <div className="text-[9px] sm:text-xs text-ink-500 uppercase tracking-wider mt-0.5">
+                    <div className="text-[9px] sm:text-xs text-white/60 uppercase tracking-wider mt-0.5">
                       {s.label}
                     </div>
                   </div>
@@ -218,9 +232,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Background decorations */}
-        <div className="pointer-events-none absolute top-20 -right-20 w-[500px] h-[500px] rounded-full bg-accent/10 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-0 -left-20 w-[400px] h-[400px] rounded-full bg-violet-400/10 blur-3xl" />
       </section>
 
       {/* ===== FEATURED CLIENT ===== */}
